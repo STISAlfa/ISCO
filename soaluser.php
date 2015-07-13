@@ -61,22 +61,22 @@
 						echo "<h2 class=\"badge\">Soal ".$start." - ".$end."</h2>"."\n";
 
 						for ($j=0; $j < 5; $j++) { 
-							$judul = "Soal Ke ".($start+$j);
+							$judul = "Judul Soal Ke ".($start+$j);
 
 							echo "<div id=\"GroupSubSoal".($start+$j)."\" class=\"panel panel-default\">"."\n";
 							echo "  <div class=\"panel-heading\">"."\n";
-							echo "		<h3 class=\"panel-title\"> $judul </h3>"."\n";
+							echo "		<h3 class=\"panel-title text-center\"> $judul </h3>"."\n";
 							echo "	</div>"."\n";
 							echo "	<div class=\"panel-body\">"."\n";
 							echo "		".$soal.$soal."</br>"."\n";
 
 							echo "	</div>"."\n";
 							echo "		"."<ul class=\"list-group\">
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal($start+$j)\" value=\"A\"> $jwb1 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal($start+$j)\" value=\"B\"> $jwb2 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal($start+$j)\" value=\"C\"> $jwb3 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal($start+$j)\" value=\"D\"> $jwb4 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal($start+$j)\" value=\"E\"> $jwb5 </li>
+										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"A\"> $jwb1 </li>
+										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"B\"> $jwb2 </li>
+										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"C\"> $jwb3 </li>
+										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"D\"> $jwb4 </li>
+										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"E\"> $jwb5 </li>
 										   </ul>
 							";
 							echo "</div>"."\n";
