@@ -1,0 +1,1 @@
+<div class="panel-footer text-right"><a class="badge" href="http://komputasi.net">© Komputasi.Net 2015</a></div>
