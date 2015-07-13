@@ -72,29 +72,29 @@
 
 							echo "	</div>"."\n";
 							echo "		"."<ul class=\"list-group\">
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"A\"> $jwb1 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"B\"> $jwb2 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"C\"> $jwb3 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"D\"> $jwb4 </li>
-										   	<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"E\"> $jwb5 </li>
+											<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"A\"> $jwb1 </li>
+											<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"B\"> $jwb2 </li>
+											<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"C\"> $jwb3 </li>
+											<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"D\"> $jwb4 </li>
+											<li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"E\"> $jwb5 </li>
 										   </ul>
-							";
-							echo "</div>"."\n";
-						}
+						";
+						echo "</div>"."\n";
+					}
 
-						echo "</section>"."\n";
-						$start = $end+1;
-						$end += 5;
-					}?>
-					<div class="text-right">
-						<input type="submit" name="formSubmit" value="Submit" class="btn btn-primary btn-lg text-right" /> 
-					</div> 
-				</div>
-			</form>
-		</div>
+					echo "</section>"."\n";
+					$start = $end+1;
+					$end += 5;
+				}?>
+				<div class="text-right">
+					<input type="submit" name="formSubmit" value="Submit" class="btn btn-primary btn-lg text-right" /> 
+				</div> 
+			</div>
+		</form>
 	</div>
+</div>
 
-	<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -103,70 +103,75 @@
 		target: '.bs-docs-sidebar',
 		offset: 40
 	});
-</script><style type="text/css">
-.fixed {
-	position: fixed;
-	left: 15px
-}
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
 
-/* sidebar */
-.bs-docs-sidebar {
-	padding-bottom: 20px;
-}
+<style type="text/css">
+	.fixed {
+		position: fixed;
+		left: 15px
+	}
 
-/* all links */
-.bs-docs-sidebar .nav>li>a {
-	color: #999;
-	border-left: 2px solid transparent;
-	padding: 4px 2px;
-	font-size: 13px;
-	font-weight: 400;
-}
+	/* sidebar */
+	.bs-docs-sidebar {
+		padding-bottom: 20px;
+	}
 
-/* nested links */
-.bs-docs-sidebar .nav .nav>li>a {
-	padding-top: 1px;
-	padding-bottom: 1px;
-	padding-left: 10px;
-	font-size: 12px;
-}
+	/* all links */
+	.bs-docs-sidebar .nav>li>a {
+		color: #999;
+		border-left: 2px solid transparent;
+		padding: 4px 2px;
+		font-size: 13px;
+		font-weight: 400;
+	}
 
-/* active & hover links */
-.bs-docs-sidebar .nav>.active>a, 
-.bs-docs-sidebar .nav>li>a:hover, 
-.bs-docs-sidebar .nav>li>a:focus {
-	color: #563d7c;                 
-	text-decoration: none;          
-	background-color: transparent;  
-	border-left-color: #563d7c; 
-}
-/* all active links */
-.bs-docs-sidebar .nav>.active>a, 
-.bs-docs-sidebar .nav>.active:hover>a,
-.bs-docs-sidebar .nav>.active:focus>a {
-	font-weight: 700;
-}
-/* nested active links */
-.bs-docs-sidebar .nav .nav>.active>a, 
-.bs-docs-sidebar .nav .nav>.active:hover>a,
-.bs-docs-sidebar .nav .nav>.active:focus>a {
-	font-weight: 500;
-}
+	/* nested links */
+	.bs-docs-sidebar .nav .nav>li>a {
+		padding-top: 1px;
+		padding-bottom: 1px;
+		padding-left: 10px;
+		font-size: 12px;
+	}
 
-/* hide inactive nested list */
-.bs-docs-sidebar .nav ul.nav {
-	display: none;           
-}
-/* show active nested list */
-.bs-docs-sidebar .nav>.active>ul.nav {
-	display: block;           
-}
+	/* active & hover links */
+	.bs-docs-sidebar .nav>.active>a, 
+	.bs-docs-sidebar .nav>li>a:hover, 
+	.bs-docs-sidebar .nav>li>a:focus {
+		color: #563d7c;                 
+		text-decoration: none;          
+		background-color: transparent;  
+		border-left-color: #563d7c; 
+	}
+	/* all active links */
+	.bs-docs-sidebar .nav>.active>a, 
+	.bs-docs-sidebar .nav>.active:hover>a,
+	.bs-docs-sidebar .nav>.active:focus>a {
+		font-weight: 700;
+	}
+	/* nested active links */
+	.bs-docs-sidebar .nav .nav>.active>a, 
+	.bs-docs-sidebar .nav .nav>.active:hover>a,
+	.bs-docs-sidebar .nav .nav>.active:focus>a {
+		font-weight: 500;
+	}
 
-/* make sidebar srollable */
-.bs-docs-sidebar > ul {
-	overflow-y: auto;
-	height: 100%;
-	padding-top: 20px;
-}
+	/* hide inactive nested list */
+	.bs-docs-sidebar .nav ul.nav {
+		display: none;           
+	}
+	/* show active nested list */
+	.bs-docs-sidebar .nav>.active>ul.nav {
+		display: block;           
+	}
+
+	/* make sidebar srollable */
+	.bs-docs-sidebar > ul {
+		overflow-y: auto;
+		height: 100%;
+		padding-top: 20px;
+	}
 </style>
 </html>
