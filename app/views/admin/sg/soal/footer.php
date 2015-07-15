@@ -1,0 +1,1 @@
+<div class="panel-footer text-right"><a class="badge" href="http://komputasi.net" data-toggle="tooltip" data-placement="top" title="Professional Web Builder">© Komputasi.Net 2015</a></div>

@@ -7,7 +7,13 @@ class SGController extends Controller {
 	public function getSoal(){
 		$data = Soal::orderBy('no')->get();
 		$ans = $data[0]->answer()->get();
-		return View::make('admin/sg/soal/index')->with('data',$data)->with('ans',$ans);
+        return View::make('admin/sg/soal/index')->with('data',$data)->with('ans',$ans);
+	}
+
+	public function viewUserSoal(){
+		$data = Soal::orderBy('no')->get();
+		$ans = $data[0]->answer()->get();
+        return View::make('admin/sg/soal/soaluser')->with('data',$data)->with('ans',$ans);
 	}
 
 	public function addSoal(){

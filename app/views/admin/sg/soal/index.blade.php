@@ -154,6 +154,11 @@
 
             #tambahSoal{
                 float: right;  
+                margin-left: 10px;
+            }
+
+            #viewSoal{
+                float: right;  
             }
 
             /* enable absolute positioning */
@@ -205,7 +210,10 @@
                             
                         </ul>
                         <div id="tambahSoal">
-                            <button id="tombolTambah" class="btn btn-danger">tambah</button>
+                            <button id="tombolTambah" class="btn btn-danger">Tambah Soal</button>
+                        </div>
+                        <div id="viewSoal">
+                            <button id="tombolTambah" class="btn btn-danger">Lihat Soal</button>
                         </div>
                     </div>
                 </div>
@@ -631,8 +639,11 @@
                         }
                         else{
                             alert("harus ada kode soal");
-                        }
-                        
+                        }    
+                    });
+
+                    $(document).on('click',"#viewSoal",function(){
+                        window.location.href="{{URL::Route('sg.soal.view')}}";
                     });
             });               
 
