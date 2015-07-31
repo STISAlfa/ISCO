@@ -117,6 +117,9 @@
         .bs-docs-sidebar .nav>.active>ul.nav {
             display: block;           
         }
+        #kirim{
+            margin-top: 20px;
+        }
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
@@ -188,6 +191,7 @@
             <div class="row">
                 <nav class="col-md-2 bs-docs-sidebar">
                     <ul id="sidebar" class="nav nav-stacked">
+                        <p>current time: <span id="timer"> </p>
                         <?php 
                         $start = 1;
                         $end   = 5;
@@ -197,21 +201,36 @@
                         
                         $N = floor($sz/5); if( $sz%5 != 0 ) $N = $N + 1;
                         $M = $sz%5; $M = ($M==0) ? 5 : $M;
+
+                        $ix = 0;
+                        $tmp = 5;
                         
                         for ($i=0; $i < $N; $i++) {
                             $end = ( $end > $sz ) ? $sz : $end;
                             echo "<li>"."\n";
                             echo "<a href=\"#GroupSoal".$start.$end."\">Soal ".$start." - ".$end."</a>"."\n";
                             echo "<ul class=\"nav nav-stacked\">"."\n"; 
-                            for ($j=0; $j < $M; $j++) { 
-                                echo "<li><a href=\"#GroupSubSoal".($start+$j)."\">Soal ".($start+$j)."</a></li>"."\n";
+                            $tmp = ($tmp < $sz) ? $tmp : $sz;
+                            while( $ix<$tmp){
+                            //for ($j=0; $j < $M; $j++) { 
+                                $ix++;
+                                echo "<li><a href=\"#GroupSubSoal".$ix."\">Soal ".$ix."</a></li>"."\n";
+                                if($ix == $tmp){
+                                    $tmp = (floor($ix/5)+1)*$tmp;
+                                    break;
+                                }
                             }
                             echo "</ul>"."\n";
                             echo "</li>"."\n";
                             $start = $end+1;
                             $end += 5;
                         }?>
+                        <div id="kirim">
+                            <button id="tombolSubmit" class="btn btn-danger">Submit</button>
+                        </div>
+                        
                     </ul>
+                    
                 </nav>
 
                 <div id="boxes">
@@ -259,7 +278,7 @@
                 
 
                 <!--Main Content -->
-                <form action="ajax/recheck.php" method="post">
+                <!-- <form action="ajax/recheck.php" method="post"> -->
                     <div class="col-md-10">
                         <?php 
                         $start = 1;
@@ -272,50 +291,65 @@
                         $N = floor($sz/5); if( $sz%5 != 0 ) $N = $N + 1;
                         $M = $sz%5; $M = ($M==0) ? 5 : $M;
 
+                        $ix = 0;
+                        $tmp = 5;
+
                         for ($i=0; $i < $N; $i++) {
                             $end = ( $end > $sz ) ? $sz : $end;
-                            $soal = "
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-                            $jwb1 = "Ini Jawaban A";
-                            $jwb2 = "Ini Jawaban B";
-                            $jwb3 = "Ini Jawaban C";
-                            $jwb4 = "Ini Jawaban D";
-                            $jwb5 = "Ini Jawaban E";
+                            // $soal = "
+                            // Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            // tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            // quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            // consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            // cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            // proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+                            // $jwb1 = "Ini Jawaban A";
+                            // $jwb2 = "Ini Jawaban B";
+                            // $jwb3 = "Ini Jawaban C";
+                            // $jwb4 = "Ini Jawaban D";
+                            // $jwb5 = "Ini Jawaban E";
+                            
                             echo "<section id=\"GroupSoal".$start.$end."\" class=\"\">"."\n";
                             echo "<h2 class=\"badge text-danger\">Soal ".$start." - ".$end."</h2>"."\n";
-                            for ($j=0; $j < $M; $j++) { 
-                                $judul = "Judul Soal Ke ".($start+$j);
-                                echo "<div id=\"GroupSubSoal".($start+$j)."\" class=\"panel panel-danger\">"."\n";
+                            $tmp = ($tmp < $sz) ? $tmp : $sz;
+                            while( $ix<$tmp){
+                            //for ($j=$start; $j <= $end; $j++) {
+                                $soal = $data[$ix]['deskripsi'];
+                                $jwb1 = $ans[$ix*5+0]['deskripsi'];
+                                $jwb2 = $ans[$ix*5+1]['deskripsi'];
+                                $jwb3 = $ans[$ix*5+2]['deskripsi'];
+                                $jwb4 = $ans[$ix*5+3]['deskripsi'];
+                                $jwb5 = $ans[$ix*5+4]['deskripsi'];
+                                $ix++;
+                                $judul = "Judul Soal Ke ".$ix;
+                                echo "<div id=\"GroupSubSoal".$ix."\" class=\"panel panel-danger\">"."\n";
                                 echo "  <div class=\"panel-heading\">"."\n";
                                 echo "      <h3 class=\"panel-title text-center\"> $judul </h3>"."\n";
                                 echo "  </div>"."\n";
                                 echo "  <div class=\"panel-body\">"."\n";
-                                echo "      ".$soal.$soal."</br>"."\n";
+                                echo "      ".$soal."</br>"."\n";
                                 echo "  </div>"."\n";
-                                echo "      "."<ul class=\"list-group\">
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"A\"> $jwb1 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"B\"> $jwb2 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"C\"> $jwb3 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"D\"> $jwb4 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"E\"> $jwb5 </li>
-                            </ul>
-                            ";
-                            echo "</div>"."\n";
-                        }
+                                echo "      "."<ul id=\"ListGroupSubSoal".$ix."\" class=\"list-group\">
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"A\"> A. $jwb1 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"B\"> B. $jwb2 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"C\"> C. $jwb3 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"D\"> D. $jwb4 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"E\"> E. $jwb5 </li>
+                                <button class=\"macho\" id=\"$ix\">Reset Jawaban</button>
+                                </ul>
+                                ";
+                                echo "</div>"."\n";
+                                if($ix == $tmp){
+                                    $tmp = (floor($ix/5)+1)*$tmp;
+                                    break;
+                                }
+                            }
                         echo "</section>"."\n";
                         $start = $end+1;
                         $end += 5;
                     }?>
-                    <div class="text-right">
-                        <input type="submit" name="formSubmit" value="Submit" class="btn btn-primary btn-lg text-right" /> 
-                    </div> 
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
         </div>
     
@@ -330,6 +364,13 @@
             <script type="text/javascript">
 
             $(document).ready(function(){ 
+
+                $(document).on('click',".macho",function(){
+                    var ix = $(this).attr('id');
+                    $('#ListGroupSubSoal'+ix).children('li').children('input').each(function () { 
+                        $(this).attr('checked',false);
+                    });
+                });
                                        
                 $(function sortSoal() {
                     $("#listSoal").sortable({ opacity: 0.6, cursor: 'move', update: function() {
@@ -350,7 +391,7 @@
                     }  
 
                     
-                });
+                    });
 
                     $(document).on('dblclick',"#listSoal div",function(){
                         $("#listSoal div").removeClass("active");
@@ -370,7 +411,47 @@
                         myli.append(mydiv);
                         $("#listSoal").append(myli);
                     });
-                });               
+                }); 
+
+            
+
+            $(document).on('click',"#kirim",function(){
+                var i;
+                var ans = '{';
+                for(i=1; i<=40; i++){
+                    var pil = $("input[name='soal"+i+"']:checked").val();
+                    if( !pil ){
+                        ans += '\'\'';    
+                    }else{
+                        ans += '\''+pil+'\'';    
+                    }
+                    if( i < 40 ) ans += ';';
+                }
+                ans += '}';
+
+                $.ajax({
+                    url: "{{URL::route('soal.submit')}}",
+                    type : "POST",
+                    data: {
+                        answer : ans
+                    }
+                });
+            });
+
+            function update() {
+              $.ajax({
+               type: 'POST',
+               //url: 'http:\/\/localhost\/isco\/public\/admin\/currenttime',
+               url: "{{URL::route('currenttime')}}",
+               timeout: 1000,
+               success: function(data) {
+                  $("#timer").html(data); 
+                  window.setTimeout(update, 1000);
+               }
+              });
+             }
+             update(); 
+
                 
             var id = '#dialog';
         
@@ -411,8 +492,7 @@
                 $('.window').hide();
             });     
 
-
-            }); 
+            });
 
 
             </script>
@@ -422,7 +502,7 @@
                     offset: {
                         top: $('header').height()+
                              $('.navbar-inverse').height()+
-                             $('.menu-section').height()+25
+                             $('.menu-section').height()+50
                     }
                 }); 
                 $('body').scrollspy({
