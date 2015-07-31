@@ -7,8 +7,8 @@
 	<meta charset="utf-8" />
 	<title>ISCO - @yield('title')</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
+	<meta content="ISCO 2015" name="description" />
+	<meta content="KOMNET" name="author" />
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
 	{{HTML::style('assets/plugins/bootstrap/css/bootstrap.min.css')}}
 	{{HTML::style('assets/plugins/font-awesome/css/font-awesome.min.css')}}
@@ -74,7 +74,16 @@
                     <span class="icon-bar"></span>
                 </button>
                 @if(!Auth::guest())
-                <a href="{{URL::to('admin')}}"><h4 class="header-tittle">ISCO 2015</h4></a>
+                <div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <a href="{{URL::to('admin')}}"><img src="{{URL::to('/')}}/assets/img/isco/isco.png" class="img-responsive" alt="ISCO"></a>
+                        </div>
+                        <div class="col-md-9">
+                            <a href="{{URL::to('admin')}}"><h4 class="header-tittle" style="padding-top:30px">INDONESIAN STATISTICS CONFERENCE & OLYMPIAD</h4></a>
+                        </div>
+                    </div>
+                </div>
                 @else
                 <a href="{{URL::to('/')}}"><h4 class="header-tittle">ISCO 2015</h4></a>
                 @endif
@@ -83,7 +92,7 @@
             
         </div>
     </div>
-    @if(!Auth::guest())
+    @if(Auth::user()->isadmin())
     <!-- LOGO HEADER END-->
     <section class="menu-section">
         <div class="container">

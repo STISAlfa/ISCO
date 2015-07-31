@@ -12,7 +12,14 @@ class SGController extends Controller {
 
 	public function viewUserSoal(){
 		$data = Soal::orderBy('no')->get();
-		$ans = $data[0]->answer()->get();
+		//$ans = $data[0]->answer()->get();
+		$ans = array();
+		$i=0;
+		foreach($data as $soal){
+			$a = $soal->answer()->orderBy('urutan')->get();
+			for($j=0;$j<=4;$j++) $ans[$i][$j] = $a[$j]->deskripsi;
+			$i++;
+		}
         return View::make('admin/sg/soal/soaluser')->with('data',$data)->with('ans',$ans);
 	}
 

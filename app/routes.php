@@ -24,7 +24,7 @@ Route::group(array('before' => 'auth'), function()
     Route::get('soal', array('as'=>'sg.soal','uses'=>'SoalController@showSoal'));
 
 	Route::get('logout', 'AuthController@getLogout');
-
+    Route::get('sg/soal/user',array('as'=>'sg.soal.view','uses'=>'SGController@viewUserSoal'));
 	Route::get('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@getEditProfile'));
 	Route::post('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@postEditProfile'));
 
@@ -46,7 +46,6 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
 
     Route::get('sg',array('as'=>'sg','uses'=>'UsersController@getSgDashboard'));
     Route::get('sg/soal',array('as'=>'sg.soal','uses'=>'SGController@getSoal'));
-    Route::get('sg/soal/user-view',array('as'=>'sg.soal.view','uses'=>'SGController@viewUserSoal'));
     Route::post('sg/soal/update',array('as'=>'sg.soal.update','uses'=>'SGController@updateSoal'));
     Route::post('sg/soal/add',array('as'=>'sg.soal.add','uses'=>'SGController@addSoal'));
     Route::get('sg/user',array('as'=>'sg.user','uses'=>'SGController@getUser'));
@@ -65,6 +64,8 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
     Route::post('service/update-opsi',array('as'=>'opsi.update','uses'=>'SGController@updatePaketSoalOpsi'));
 
     Route::get('service/pilih-opsi',array('as'=>'pilih.opsi','uses'=>'SGController@pilihOpsi'));
+
+    Route::post('service/confirm',array('as'=>'service.confirm','uses'=>'UsersController@updateConfirm'));
 });
 
 

@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Lomba Paper Statistika SMA')
+@section('title', 'Lomba Statistician Game')
 
 @section('header')
     @parent
@@ -53,7 +53,7 @@
       <br>
       <div class="row">
         <?php
-          for( $i=0;$i<3;$i++){
+          for( $i=0;$i<2;$i++){
             if($i==0){
         ?>              
         <div class="col-md-4">
@@ -100,7 +100,7 @@
             @if($i==0)
             <div class="panel-heading">Identitas Ketua Tim :</div>
             @else
-            <div class="panel-heading">Anggota Tim {{$i}} :</div>
+            <div class="panel-heading">Anggota Tim :</div>
             @endif
             <div class="panel-body">
               @if(isset($data[$i]))
@@ -222,7 +222,7 @@
         App.init();
         Login.init();
 
-            $('#paper-form input, #paper-form select').not([type="submit"]).addClass('required');
+            
       });
     </script>
     <!-- END JAVASCRIPTS -->

@@ -121,17 +121,18 @@ class LombaController extends Controller {
 	        'jurusan1'    	   => 'required',                          // just a normal required validation
 	        'nim1'			   => 'required',                        // just a normal required validation
 	        'tahunmasuk1'	   => 'required',                        // just a normal required validation
-	        'email1'		   => 'required|email|unique:Paper_Member,email',   // required and must be unique in the Essay table
+	        'email1'		   => 'required|email|unique:paper_member,email',   // required and must be unique in the Essay table
 	        'handphone1'	   => 'required',                        // just a normal required validation
 	        'kp1'			   => 'required|image|max:5000',
 	        
+	        /*
 	        'nama2'             => 'required',                        // just a normal required validation
 	        'jeniskelamin2'	   => 'required',
 	        'sma2'			   => 'required',                        // just a normal required validation
 	        'jurusan2'    	   => 'required',                          // just a normal required validation
 	        'nim2'			   => 'required',                        // just a normal required validation
 	        'tahunmasuk2'	   => 'required',                        // just a normal required validation
-	        'email2'			   => 'required|email|unique:Paper_Member,email',   // required and must be unique in the Essay table
+	        'email2'			   => 'required|email|unique:paper_member,email',   // required and must be unique in the Essay table
 	        'handphone2'		   => 'required',                        // just a normal required validation
 	        'kp2'			   => 'required|image|max:5000',
 	        
@@ -141,10 +142,10 @@ class LombaController extends Controller {
 	        'jurusan3'    	   => 'required',                          // just a normal required validation
 	        'nim3'			   => 'required',                        // just a normal required validation
 	        'tahunmasuk3'	   => 'required',                        // just a normal required validation
-	        'email3'			   => 'required|email|unique:Paper_Member,email',   // required and must be unique in the Essay table
+	        'email3'			   => 'required|email|unique:paper_member,email',   // required and must be unique in the Essay table
 	        'handphone3'		   => 'required',                        // just a normal required validation
 	        'kp3'			   => 'required|image|max:5000',
-	        
+	        */
 	        'judulpaper'	   => 'required',
 	        'paper'			   => 'required|max:5000',
 	        'captcha'		   => 'required|captcha'
@@ -216,7 +217,7 @@ class LombaController extends Controller {
             else return Redirect::to('paper')->with('errors','Terjadi Kesalahan, Coba Daftar Lagi');
 
             //$member1->save();
-
+            /*
             $member2 = new Paper_Member;
             //$member2->team_id = $team_id; 
 	        $member2->nama = Input::get('nama2');
@@ -280,12 +281,12 @@ class LombaController extends Controller {
 	        $essay->essay = storage_path()."assets\img\isco\essay".$namaessay;
 			*/
 	        
-	        DB::transaction(function() use ($member1, $member2, $member3, $team, $papername) {
+	        DB::transaction(function() use ($member1, $team, $papername) {
 			   $team = $team->save();
 			   $tem = Paper_Team::where('paper','=',$papername)->first();
 			   $success = $tem->member()->save($member1);
-			   $success = $tem->member()->save($member2);
-			   $success = $tem->member()->save($member3);
+			   //$success = $tem->member()->save($member2);
+			   //$success = $tem->member()->save($member3);
 			   //Paper_Team::where('paper','=',$papername)->member()->save($member1);
 			   //Paper_Team::find($team->id)->member()->save($member2);
 			   //Paper_Team::find($team->id)->member()->save($member3);

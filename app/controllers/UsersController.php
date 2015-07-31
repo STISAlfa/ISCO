@@ -18,13 +18,71 @@ class UsersController extends Controller {
     public function getDataTableUser(){
         return Datatable::collection(User::all())
         ->showColumns('id', 'created_at','username','email','asal_sekolah','confirmed')
+        ->addColumn('nama1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->nama;
+        })
+        ->addColumn('nis1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->nis;
+        })
+        ->addColumn('tahunmasuk1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->tahun_masuk;
+        })
+        ->addColumn('handphone1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->handphone;
+        })
+        ->addColumn('kp1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->kartu_pelajar_dir;
+
+        })
+        ->addColumn('nama2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->nama;
+        })
+        ->addColumn('nis2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->nis;
+        })
+        ->addColumn('tahunmasuk2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->tahun_masuk;
+        })
+        ->addColumn('handphone2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->handphone;
+        })
+        ->addColumn('kp2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->kartu_pelajar_dir;
+
+        })
         ->addColumn('status',function($model){
             $st = $model->status;
             if($st==1){
-                return '<p><input id="switch-size" type="checkbox" checked data-size="mini"></p>';
+                return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
+                    <label class="btn btn-primary btn-white active">
+                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
+                    </label>
+                    <label class="btn btn-primary btn-white">
+                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
+                    </label>
+                </div>';
+                //return '<p><input id="switch-size" type="checkbox" checked data-size="mini"></p>';
             }
             else{
-                return '<p><input id="switch-size" type="checkbox" data-size="mini"></p>';
+                return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
+                    <label class="btn btn-primary btn-white">
+                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
+                    </label>
+                    <label class="btn btn-primary btn-white active">
+                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
+                    </label>
+                </div>';
+                //return '<p><input id="switch-size" type="checkbox" data-size="mini"></p>';
             }
         })
         ->searchColumns('username')
@@ -173,4 +231,15 @@ class UsersController extends Controller {
         ->make();
     }
 
+
+    public function updateConfirm(){
+        $id = Input::get('id');
+        $user = User::find($id);
+        if(Input::get('st')=="false"){
+            $user->status = 0;
+        }        
+        else $user->status = 1;
+        $user->save();
+
+    }
 }

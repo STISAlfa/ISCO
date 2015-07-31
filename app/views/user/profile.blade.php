@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Lomba Paper Statistika SMA')
+@section('title', 'Lomba Statistician Game')
 
 @section('header')
     @parent
@@ -17,13 +17,7 @@
   <!-- BEGIN REGISTRATION FORM -->
     
   <div class="content2">
-    @if(Session::has('success'))
-      <?php $success = Session::get('success'); ?>
-      <div class="alert alert-success">
-        <button class="close" data-dismiss="alert"></button>
-        <span>{{$success}}</span>
-      </div>
-    @endif
+    
 
 
     <nav class="navbar navbar-default">
@@ -48,6 +42,20 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
+    @if(Session::has('success'))
+      <?php $success = Session::get('success'); ?>
+      <div class="alert alert-success">
+        <button class="close" data-dismiss="alert"></button>
+        <span>{{$success}}</span>
+      </div>
+    @endif
+
+    <div class="alert alert-info">
+        <button class="close" data-dismiss="alert"></button>
+        <span>Harap segera melengkapi data tim anda, terima kasih</span>
+    </div>
+
     <!-- END REGISTRATION FORM -->
     <div id="#anggota">
       <br>
@@ -126,7 +134,7 @@
                  <tr>
                   <td>Kartu Pelajar </td>
                   @if($data[0]->kartu_pelajar_dir!=null)
-                  <td><img src="{{$data[0]->kartu_pelajar_dir}}" class="img-responsive"></td>
+                  <td>sudah terupload</td>
                   @else
                   <td class="info-maroon">belum terisi</td>
                   @endif
@@ -144,7 +152,7 @@
         <div class="col-md-8">
           <!--Ketua Tim-->
           <div class="panel panel-default">
-            <div class="panel-heading">Identitas Anggota 1 :</div>
+            <div class="panel-heading">Identitas Anggota :</div>
             <div class="panel-body">
               <!-- Table -->
               @if(isset($data[1]))
@@ -184,64 +192,7 @@
                  <tr>
                   <td>Kartu Pelajar </td>
                   @if($data[1]->kartu_pelajar_dir!=null)
-                  <td><img src="{{$data[1]->kartu_pelajar_dir}}" class="img-responsive"></td>
-                  @else
-                  <td class="info-maroon">belum terisi</td>
-                  @endif
-                </tr>
-                <tr>
-                  <td colspan=2 style="text-align:right"><a href="edit-profile">Edit/Update</a></td>
-                </tr>
-              </table>
-              @endif
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
-          <!--Ketua Tim-->
-          <div class="panel panel-default">
-            <div class="panel-heading">Identitas Anggota 2 :</div>
-            <div class="panel-body">
-              @if(isset($data[2]))
-              <table class="table">
-                <tr>
-                  <td class="col-md-3">Nama </td>
-                  @if($data[2]->nama!=null)
-                  <td>{{$data[2]->nama}}</td>
-                  @else
-                  <td class="info-maroon">belum terisi</td>
-                  @endif
-                </tr>
-                <tr>
-                  <td>NIS </td>
-                  @if($data[2]->nis!=null)
-                  <td>{{$data[2]->nis}}</td>
-                  @else
-                  <td class="info-maroon">belum terisi</td>
-                  @endif
-                </tr>
-                <tr>
-                  <td>Tahun Masuk </td>
-                  @if($data[2]->tahun_masuk!=null)
-                  <td>{{$data[2]->tahun_masuk}}</td>
-                  @else
-                  <td class="info-maroon">belum terisi</td>
-                  @endif
-                </tr>
-                 <tr>
-                  <td>Kontak </td>
-                  @if($data[2]->handphone!=null)
-                  <td>{{$data[2]->handphone}}</td>
-                  @else
-                  <td class="info-maroon">belum terisi</td>
-                  @endif
-                </tr>
-                 <tr>
-                  <td>Kartu Pelajar </td>
-                  @if($data[2]->kartu_pelajar_dir!=null)
-                  <td><img src="{{$data[2]->kartu_pelajar_dir}}" class="img-responsive"></td>
+                  <td>sudah terupload</td>
                   @else
                   <td class="info-maroon">belum terisi</td>
                   @endif

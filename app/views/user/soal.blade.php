@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Soal Manager')
+@section('title', 'User View Soal')
 
 @section('header')
     @parent
@@ -11,83 +11,11 @@
         {{HTML::script('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css')}}
         {{HTML::script('assets/plugins/ckeditor/ckeditor.js')}}
         <style>
-            
-            .btn-tambah{
-                color: #333;
-                background-color: #fff;
-                border-color: #ccc;
-            }
 
-            .panel-isco{
-                border-color: #C36464;
-            }
-
-            .panel-isco>.panel-heading {
+            .section-isco{
               color: #FFF;
               background-color: #C36464;
               border-color: #C36464;
-            }
-
-            #containerList{
-
-                border-radius: 4px 4px 4px 4px;
-                
-            }
-
-            #containerSoal{
-
-                min-height: 500px;
-                border-style: solid;
-                border-color: #F0677C;
-                color: #000000;
-                margin: 5px;
-                padding: 5px;
-                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-                width:99%; 
-            }
-
-            #listSoal{
-                list-style: none;
-                display: block;
-                margin: 0;
-                padding: 0;
-                margin: 0;
-                padding: 0; 
-            }
-
-            #detail{
-
-            }
-
-            .dragdrop{
-
-                display: block;
-                border-style: solid;
-                border-color: #F0677C;
-                color: #000000;
-                margin: 5px;
-                padding: 5px;
-                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-                width:99%;
-                transition: background-color 400ms ease;
-                transition: width 100ms linear;
-            }
-
-            .dragdrop:hover{
-
-                background-color: rgba(240, 103, 124, 0.58);
-            }
-
-            .active{
-
-                background-color: #F0677C;
-                color: #FFFFFF;
-                width: 105%;
-                
-            }
-
-            #tambahSoal{
-                float: right;  
             }
 
             #mask {
@@ -114,7 +42,7 @@
              
             #boxes #dialog {
               width: 750px;
-              height: 300px;
+              height: 500px;
               padding: 10px;
               background-color: #ffffff;
               font-family: 'Segoe UI Light', sans-serif;
@@ -123,37 +51,121 @@
              
             #popupfoot {
               font-size: 16pt;
-              position: absolute;
+              position: relative;
               bottom: 5px;
-              width: 300px;
-              left: 250px;
+              width: 100px;
+              margin: auto;
             }
 
-
+            #popupfoot a{
+                text-decoration: none;
+            }
+            .agree:hover{
+              background-color: #D1D1D1;
+            }
+            .popupoption:hover{
+                background-color:#D1D1D1;
+                color: green;
+            }
+            .popupoption2:hover{
+                
+                color: red;
+            }
         </style>
+        <style type="text/css">
+        /* all links */
+        .bs-docs-sidebar .nav>li>a {
+            color: #999;
+            border-left: 2px solid transparent;
+            padding: 4px 2px;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        /* nested links */
+        .bs-docs-sidebar .nav .nav>li>a {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            font-size: 12px;
+        }
+        /* active & hover links */
+        .bs-docs-sidebar .nav>.active>a, 
+        .bs-docs-sidebar .nav>li>a:hover, 
+        .bs-docs-sidebar .nav>li>a:focus {
+            color: #CC0000;                 
+            text-decoration: none;          
+            background-color: transparent;  
+            border-left-color: #CC0000; 
+        }
+        /* all active links */
+        .bs-docs-sidebar .nav>.active>a, 
+        .bs-docs-sidebar .nav>.active:hover>a,
+        .bs-docs-sidebar .nav>.active:focus>a {
+            font-weight: 700;
+        }
+        /* nested active links */
+        .bs-docs-sidebar .nav .nav>.active>a, 
+        .bs-docs-sidebar .nav .nav>.active:hover>a,
+        .bs-docs-sidebar .nav .nav>.active:focus>a {
+            font-weight: 500;
+        }
+        /* hide inactive nested list */
+        .bs-docs-sidebar .nav ul.nav {
+            display: none;           
+        }
+        /* show active nested list */
+        .bs-docs-sidebar .nav>.active>ul.nav {
+            display: block;           
+        }
+        @media (min-width: 979px) {
+            #sidebar.affix-top {
+                position: static;
+                margin-top:25px;
+                width:228px;
+            }
+            #sidebar.affix {
+                position: fixed;
+                top:25px;
+                width:228px;
+            }
+        }
+        .affix,.affix-top {
+            position:static;
+        }
+    </style>
     @stop
 
 
 @section('content')
 
-<div>
+<div style="background-color: white">
 
-    <div class="panel panel-isco">
-        <div class="panel-heading">Manage Soal</div>
-        <div class="panel-body">
-            <div class='row'>
-                <div id="boxes">
-                    <div id="dialog" class="window">
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        <div id="popupfoot"> <a href="#" class="close agree">I agree</a> | <a class="agree"style="color:red;" href="#">I do not agree</a> </div>
-                    </div>
-                    <div id="mask"></div>
-                </div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid" style="background-color: #C36464">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="color: white">Statistician Game 2015</a>
+        </div>
 
-                <div class="col-md-3">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <a href="#"><button type="button" class="btn btn-default navbar-btn" disabled>Penyisihan</button></a>
+            <a href="logout"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+            
+                
+
+                <!-- <div class="col-md-3">
                     <div id="containerList">
                         <ul id="listSoal">
                             <?php
@@ -169,31 +181,143 @@
                             ?>
                             
                         </ul>
-                        <!-- <div id="tambahSoal">
-                            <button id="tombolTambah" class="btn btn-default">tambah</button>
-                        </div> -->
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div id="containerSoal">
-                        <div id="detail">
-                            <form>
-                                <label>Entry Soal</label>
-                                <textarea name="editor1" id="editor1" rows="10" cols="80">
-                                   
-                                </textarea>
-                                <script>
-                                    // Replace the <textarea id="editor1"> with a CKEditor
-                                    // instance, using default configuration.
-                                    CKEDITOR.replace( 'editor1' );
-                                </script>
-                            </form>
+                </div> -->
+            
+        <div class="container">
+            <div class="row">
+                <nav class="col-md-2 bs-docs-sidebar">
+                    <ul id="sidebar" class="nav nav-stacked">
+                        <?php 
+                        $start = 1;
+                        $end   = 5;
+                        if( $data ){
+                            $sz = count($data);    
+                        }
+                        
+                        $N = floor($sz/5); if( $sz%5 != 0 ) $N = $N + 1;
+                        $M = $sz%5; $M = ($M==0) ? 5 : $M;
+                        
+                        for ($i=0; $i < $N; $i++) {
+                            $end = ( $end > $sz ) ? $sz : $end;
+                            echo "<li>"."\n";
+                            echo "<a href=\"#GroupSoal".$start.$end."\">Soal ".$start." - ".$end."</a>"."\n";
+                            echo "<ul class=\"nav nav-stacked\">"."\n"; 
+                            for ($j=0; $j < $M; $j++) { 
+                                echo "<li><a href=\"#GroupSubSoal".($start+$j)."\">Soal ".($start+$j)."</a></li>"."\n";
+                            }
+                            echo "</ul>"."\n";
+                            echo "</li>"."\n";
+                            $start = $end+1;
+                            $end += 5;
+                        }?>
+                    </ul>
+                </nav>
+
+                <div id="boxes">
+                    <div id="dialog" class="window" style="overflow: auto; position: fixed;">
+                    <div class="panel panel-info">
+                    <div class="panel-heading">PERATURAN SOAL</div>
+                        <div class="panel-body">
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
                         </div>
+                        <div id="popupfoot" class="panel-heading tutup"><a style="color:blue;" href="#">Oke</a> </div>
                     </div>
+                    </div>
+                    <div id="mask"></div>
                 </div>
-            </div>
+                <!--Nav Bar -->
+                
+
+                <!--Main Content -->
+                <form action="ajax/recheck.php" method="post">
+                    <div class="col-md-10">
+                        <?php 
+                        $start = 1;
+                        $end   = 5;
+
+                        if( $data ){
+                            $sz = count($data);    
+                        }
+                        
+                        $N = floor($sz/5); if( $sz%5 != 0 ) $N = $N + 1;
+                        $M = $sz%5; $M = ($M==0) ? 5 : $M;
+
+                        for ($i=0; $i < $N; $i++) {
+                            $end = ( $end > $sz ) ? $sz : $end;
+                            $soal = "
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+                            $jwb1 = "Ini Jawaban A";
+                            $jwb2 = "Ini Jawaban B";
+                            $jwb3 = "Ini Jawaban C";
+                            $jwb4 = "Ini Jawaban D";
+                            $jwb5 = "Ini Jawaban E";
+                            echo "<section id=\"GroupSoal".$start.$end."\" class=\"\">"."\n";
+                            echo "<h2 class=\"badge text-danger\">Soal ".$start." - ".$end."</h2>"."\n";
+                            for ($j=0; $j < $M; $j++) { 
+                                $judul = "Judul Soal Ke ".($start+$j);
+                                echo "<div id=\"GroupSubSoal".($start+$j)."\" class=\"panel panel-danger\">"."\n";
+                                echo "  <div class=\"panel-heading\">"."\n";
+                                echo "      <h3 class=\"panel-title text-center\"> $judul </h3>"."\n";
+                                echo "  </div>"."\n";
+                                echo "  <div class=\"panel-body\">"."\n";
+                                echo "      ".$soal.$soal."</br>"."\n";
+                                echo "  </div>"."\n";
+                                echo "      "."<ul class=\"list-group\">
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"A\"> $jwb1 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"B\"> $jwb2 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"C\"> $jwb3 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"D\"> $jwb4 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".($start+$j)."\" value=\"E\"> $jwb5 </li>
+                            </ul>
+                            ";
+                            echo "</div>"."\n";
+                        }
+                        echo "</section>"."\n";
+                        $start = $end+1;
+                        $end += 5;
+                    }?>
+                    <div class="text-right">
+                        <input type="submit" name="formSubmit" value="Submit" class="btn btn-primary btn-lg text-right" /> 
+                    </div> 
+                </div>
+            </form>
         </div>
-    </div>
+        </div>
     
 </div>
 
@@ -202,7 +326,7 @@
 
 @section('script')
     @parent
-
+            
             <script type="text/javascript">
 
             $(document).ready(function(){ 
@@ -248,49 +372,63 @@
                     });
                 });               
                 
-                var id = '#dialog';
-   
-                //Get the screen height and width
-                var maskHeight = $(document).height();
-                var maskWidth = $(window).width();
-                   
-                //Set heigth and width to mask to fill up the whole screen
-                $('#mask').css({'width':maskWidth,'height':maskHeight});
-                 
-                //transition effect
-                $('#mask').fadeIn(500);
-                $('#mask').fadeTo("slow",0.9); 
-                   
-                //Get the window height and width
-                var winH = $(window).height();
-                var winW = $(window).width();
-                               
-                //Set the popup window to center
-                $(id).css('top',  winH/2-$(id).height()/2);
-                $(id).css('left', winW/2-$(id).width()/2);
-                   
-                //transition effect
-                $(id).fadeIn(2000);  
-                   
-                //if close button is clicked
-                $('.window .close').click(function (e) {
+            var id = '#dialog';
+        
+            //Get the screen height and width
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+        
+            //Set heigth and width to mask to fill up the whole screen
+            $('#mask').css({'width':maskWidth,'height':maskHeight});
+            
+            //transition effect     
+            $('#mask').fadeIn(500); 
+            $('#mask').fadeTo("slow",0.9);  
+        
+            //Get the window height and width
+            var winH = $(window).height();
+            var winW = $(window).width();
+                  
+            //Set the popup window to center
+            $(id).css('top',  winH/2-$(id).height()/2);
+            $(id).css('left', winW/2-$(id).width()/2);
+        
+            //transition effect
+            $(id).fadeIn(2000);     
+            
+            //if close button is clicked
+            $('.window .tutup').click(function (e) {
                 //Cancel the link behavior
                 e.preventDefault();
-                 
+                
                 $('#mask').hide();
                 $('.window').hide();
-                });
-                 
-                //if mask is clicked
-                $('#mask').click(function () {
+            });     
+            
+            //if mask is clicked
+            $('#mask').click(function () {
                 $(this).hide();
                 $('.window').hide();
-                });
+            });     
 
 
             }); 
 
 
+            </script>
+
+            <script type="text/javascript">
+                $('#sidebar').affix({
+                    offset: {
+                        top: $('header').height()+
+                             $('.navbar-inverse').height()+
+                             $('.menu-section').height()+25
+                    }
+                }); 
+                $('body').scrollspy({
+                    target: '.bs-docs-sidebar',
+                    offset: 40
+                });
             </script>
 
     @stop

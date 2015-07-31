@@ -69,13 +69,23 @@ class AuthController extends Controller {
                 'confirmation_code' => $confirmation_code,
                 'password' => Input::get('password'),
             );
+            
+            $mimin = 'mandes95@gmail.com';
+            
             if(    
             Mail::send('emails.verify', $view_data, function($message) {
                 $message->to(Input::get('email'), Input::get('username'))
                     ->subject('ISCO 2015 | Verify your email address');
-            })){
+            })
+            ){
                 return Redirect::to('register')->with('error','maaf terjadi kesalahan, tolong ulangi pendaftaran');
-            }  
+            }
+            else{
+              Mail::send('emails.verify', $view_data, function($message) {
+                $message->to('mandes95@gmail.com', Input::get('username'))
+                    ->subject('ISCO 2015 | Verify your email address');
+                });
+            }
 
 
             $user->save();
@@ -94,11 +104,12 @@ class AuthController extends Controller {
                 $anggota2->urutan = 2;
                 $anggota2->user_id = User::where('username','=',Input::get('username'))->first()->id;
                 $anggota2->save();
-                
+                /*
                 $anggota3 = new Anggota(); 
                 $anggota3->urutan = 3;
                 $anggota3->user_id = User::where('username','=',Input::get('username'))->first()->id;
                 $anggota3->save();
+                */
             });
             /*
             Mail::send('mail/welcome', array('username'=>Input::get('username'),'password'=>Input::get('password')), function($message){
@@ -132,7 +143,7 @@ class AuthController extends Controller {
         $user->save();
 
 
-        return Redirect::route('login')->with('success','Selamat! Akun anda telah terverifikasi');
+        return Redirect::route('login')->with('success','Selamat! Email anda telah terverifikasi');
     }
     
 
