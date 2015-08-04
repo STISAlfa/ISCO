@@ -2,6 +2,56 @@
 
 class UsersController extends Controller {
 
+    private function cekwaktu($a,$b){
+        $a = explode("-", $a);
+        $b = explode("-", $b);
+        if($a[0]<=$b[0]){
+            if($a[1]<=$b[1]){
+                if($a[2]<=$b[2]){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+            else{
+                return true;
+            }
+        }
+        return true;
+    }
+
+    //buat kontes
+     public function getCurrentTime(){
+        $endTime = "2015-08-15 11:50:00";
+        $mytime = Carbon\Carbon::now()->toDateTimeString();
+        $arr = explode(" ", $mytime);
+        $arrdetail = explode(":", $arr[1]);
+        $arr2 = explode(" ", $endTime);
+        if($this->cekwaktu($arr[0],$arr2[0])){
+            return 0;
+        }
+        $endTimedetail = explode(":", $arr2[1]);
+        $sec = 0;
+        if($arrdetail[0]<=$endTimedetail[0]){
+            $sec += 3600*((int)$endTimedetail[0]-(int)$arrdetail[0]);
+            if($arrdetail[1]<=$endTimedetail[1]){
+                $sec += 60*((int)$endTimedetail[1]-(int)$arrdetail[1]);
+                if($arrdetail[2]<=$endTimedetail[2]){
+                    $sec += ((int)$endTimedetail[2]-(int)$arrdetail[2]);
+                }
+                else{
+                    $sec -=((int)$arrdetail[2]-(int)$endTimedetail[2]);
+                }
+            }
+            else{
+                $sec -=60*((int)$arrdetail[1]-(int)$endTimedetail[1]);
+            }
+        }
+        
+        return (int)$sec;
+    }
+
     public function getDashboard(){
 
     }

@@ -19,6 +19,7 @@
 	<link rel="shortcut icon" href="favicon.ico" />
     @section('header')
         <script>
+        @if(Auth::user()->isadmin())
         $(document).ready(function() {
 
             function update() {
@@ -36,13 +37,14 @@
              update();
 
         });
+        @endif
         </script>
     @show
 
 </head>
  	
 <body>
-    @if(!Auth::guest())
+    @if(Auth::user()->isadmin())
 	<header>
         <div class="container">
             <div class="row">

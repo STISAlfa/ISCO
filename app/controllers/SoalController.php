@@ -7,8 +7,9 @@ class SoalController extends Controller {
     }
 
     public function showSoal(){
+    	$ans = Answer::orderBy('id')->get();
     	$data = Soal::orderBy('no')->get();
-    	return View::make('user/soal')->with('data',$data);
+    	return View::make('user/soal')->with('data',$data)->with('ans',$ans);
     }
 }
     

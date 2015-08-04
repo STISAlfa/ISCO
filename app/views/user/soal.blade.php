@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout.admin')
 
 @section('title', 'User View Soal')
 
@@ -10,7 +10,58 @@
         {{HTML::script('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js')}}
         {{HTML::script('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css')}}
         {{HTML::script('assets/plugins/ckeditor/ckeditor.js')}}
+        {{HTML::script('assets/plugins/jquery.countdown/jquery.countdown.js')}}
+        <script>
+        $(document).ready(function() {
+
+            $.ajax({
+               type: 'POST',
+               url: "{{URL::route('currenttime.user')}}",
+               success: function(data) {
+                    
+                      var $date =   new Date(new Date().valueOf() +  data*1000);
+                      var $clock = $('#timerUser');
+                      
+                      $clock.countdown($date, function(event) {
+                        $(this).html(event.strftime('%H:%M:%S'));
+                      }); 
+               }
+              });
+
+            
+        });
+
+        </script>
+
         <style>
+
+            #timerUser {
+                margin-top: 28px;
+                color: red;
+                text-align: center;
+                font-size: 15pt;
+            }
+
+            .countdown_section {
+                color: #dadada;
+                display: inline-block;
+                font-size: 12px;
+                text-align: center;
+                width: 25%;
+                letter-spacing: 1px;
+                border-left: 1px dashed #dadada;
+                border-color: rgba(218,218,218,0.8);
+                padding: 42px 12px 28px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                text-shadow: 2px 2px 2px rgba(150,150,150,1);
+                text-transform: uppercase;
+            }
+
+            .countdown_section:first-child {
+                border-left: 0;
+            }
 
             .section-isco{
               color: #FFF;
@@ -143,28 +194,7 @@
 
 <div style="background-color: white">
 
-    <nav class="navbar navbar-default">
-      <div class="container-fluid" style="background-color: #C36464">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#" style="color: white">Statistician Game 2015</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <a href="#"><button type="button" class="btn btn-default navbar-btn" disabled>Penyisihan</button></a>
-            <a href="logout"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+    
             
                 
 
@@ -191,7 +221,8 @@
             <div class="row">
                 <nav class="col-md-2 bs-docs-sidebar">
                     <ul id="sidebar" class="nav nav-stacked">
-                        <p>current time: <span id="timer"> </p>
+                        
+                        <p>waktu tersisa : <br><span id="timerUser"> </p>
                         <?php 
                         $start = 1;
                         $end   = 5;
@@ -335,8 +366,9 @@
                                 <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"C\"> C. $jwb3 </li>
                                 <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"D\"> D. $jwb4 </li>
                                 <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"E\"> E. $jwb5 </li>
-                                <button class=\"macho\" id=\"$ix\">Reset Jawaban</button>
                                 </ul>
+                                <button class=\"macho btn btn-primary\" id=\"$ix\">Reset Jawaban</button>
+                                
                                 ";
                                 echo "</div>"."\n";
                                 if($ix == $tmp){
@@ -430,7 +462,7 @@
                 ans += '}';
 
                 $.ajax({
-                    url: "{{URL::route('soal.submit')}}",
+                    //url: "",
                     type : "POST",
                     data: {
                         answer : ans
@@ -438,19 +470,7 @@
                 });
             });
 
-            function update() {
-              $.ajax({
-               type: 'POST',
-               //url: 'http:\/\/localhost\/isco\/public\/admin\/currenttime',
-               url: "{{URL::route('currenttime')}}",
-               timeout: 1000,
-               success: function(data) {
-                  $("#timer").html(data); 
-                  window.setTimeout(update, 1000);
-               }
-              });
-             }
-             update(); 
+            
 
                 
             var id = '#dialog';

@@ -21,13 +21,15 @@ Route::group(array('before' => 'auth'), function()
 	
 	Route::get('/', 'HomeController@showProfile');
 	Route::get('home', 'HomeController@showProfile');
-    Route::get('soal', array('as'=>'sg.soal','uses'=>'SoalController@showSoal'));
+    //Route::get('soal', array('as'=>'sg.soal','uses'=>'SoalController@showSoal'));
+    Route::get('kontes/{id}',array('as'=>'sg.kontes','uses'=>'KontesController@getKontes'));
+    Route::post('kontes/{id}',array('as'=>'sg.kontes.post','uses'=>'KontesController@postKontes'));
 
 	Route::get('logout', 'AuthController@getLogout');
-    Route::get('sg/soal/user',array('as'=>'sg.soal.view','uses'=>'SGController@viewUserSoal'));
+    //Route::get('sg/soal/user',array('as'=>'sg.soal.view','uses'=>'SGController@viewUserSoal'));
 	Route::get('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@getEditProfile'));
 	Route::post('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@postEditProfile'));
-
+    Route::post('currenttime',array('as'=>'currenttime.user','uses'=>'UsersController@getCurrentTime'));
 });
 
 
