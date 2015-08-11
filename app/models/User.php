@@ -21,8 +21,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = array('password', 'remember_token','confirmation_code');
 
+	public function registered($kontesId){
+		$akses = Kontes_Enrole::where('user_id','=',$this->id)->where('kontes_id','=',$kontesId)->get();
+		if(count($akses)>0){
+			return true;
+		}
+		else return false;
+	}
 
 	public function role()
     {

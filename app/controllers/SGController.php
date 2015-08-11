@@ -2,7 +2,139 @@
 
 class SGController extends Controller {
 
+	public function updateKontes(){
+		$idKontes = Input::get('idKontes');
+		$name = Input::get('name');
+		$endtime = Input::get('endtime');
+		$starttime = Input::get('starttime');
 
+		$kontes = Kontes::find($idKontes);
+		$kontes->nama = $name;
+		$kontes->endtime = $endtime;
+		$kontes->starttime = $starttime;
+		if($kontes->save()){
+			return $name;
+		}
+		else return 0;
+
+	}
+
+	public function getKontes(){
+		$data = Kontes::All();
+		return View::make('admin/sg/kontes/index')->with('data',$data);
+	}
+
+
+	public function postSoalList(){
+		$idKontes = Input::get('idKontes');
+		$listUser = Input::get('list');
+
+
+		$enrole = Soal_Branch::where('kontes_id','=',$idKontes)->delete();
+			
+		if($listUser==null) return 1;
+
+		foreach($listUser as $user){
+			$enrole = new Soal_Branch();
+			$enrole->soal_id = $user;
+			$enrole->kontes_id = $idKontes;
+			if($enrole->save()){
+			}
+			else{
+				return 0;
+			}
+		}
+
+		return 1;
+
+	}
+	
+	public function getSoalList(){
+		$idKontes = Input::get('idKontes');
+		$data = Soal_Branch::where('kontes_id','=',$idKontes)->get();
+
+		$soals = Soal::orderBy('no')->get();
+		
+		$added = array();
+		$c=0;
+		$d=0;
+
+		foreach ($soals as $soal) {
+			foreach($data as $useradd){
+				if($soal->id==$useradd->soal_id){
+					$added[$c]=$soal;
+					$c++;
+					unset($soals[$d]);
+					break;
+				}
+				
+			}
+			$d++;
+		}
+
+		$ret['added'] = $added;
+		$ret['lainnya'] = $soals;
+
+		return json_encode($ret);
+	}
+
+
+	public function postUserList(){
+		$idKontes = Input::get('idKontes');
+		$listUser = Input::get('list');
+
+
+		$enrole = Kontes_Enrole::where('kontes_id','=',$idKontes)->delete();
+			
+		if($listUser==null) return 1;
+
+		foreach($listUser as $user){
+			$enrole = new Kontes_Enrole();
+			$enrole->user_id = $user;
+			$enrole->kontes_id = $idKontes;
+			if($enrole->save()){
+			}
+			else{
+				return 0;
+			}
+		}
+
+		return 1;
+
+	}
+
+
+
+
+
+	public function getUserList(){
+		$idKontes = Input::get('idKontes');
+		$data = Kontes_Enrole::where('kontes_id','=',$idKontes)->get();
+
+		$users = User::where('status','=','1')->orderBy('username')->get();
+		
+		$added = array();
+		$c=0;
+		$d=0;
+
+		foreach ($users as $user) {
+			foreach($data as $useradd){
+				if($user->id==$useradd->user_id){
+					$added[$c]=$user;
+					$c++;
+					unset($users[$d]);
+					break;
+				}
+				
+			}
+			$d++;
+		}
+
+		$ret['added'] = $added;
+		$ret['lainnya'] = $users;
+
+		return json_encode($ret);
+	}
 
 	public function getSoal(){
 		$data = Soal::orderBy('no')->get();
@@ -111,6 +243,16 @@ class SGController extends Controller {
 		$soal->deskripsi = Input::get('deskripsi');
 		$soal->save();
 	}
+
+	public function updateKodeSoal(){
+		$id_temp = Input::get('id');
+		$id = str_replace("record_", "", $id_temp);
+		$soal = Soal::find($id);
+
+		$soal->kodesoal = Input::get('kodesoal');
+		$soal->save();
+	}
+
 
 	public function updatePaketSoalOpsi(){
 		$no_opsi = Input::get('opsi');

@@ -47,23 +47,32 @@
       <div class="container content">
             <div class="row">
                 <div class="sun clearfix">
-                  <div style="padding-top:100px">
-                    <div class="col-sm-4 col-sm-offset-4">
-                        <img src="{{URL::to('/')}}/assets/img/isco/isco.png" class="img-responsive" alt="ISCO"> 
+                  <div class="row">
+                    <div style="padding-top:100px">
+                      <div class="col-sm-4 col-sm-offset-4">
+                          <img src="{{URL::to('/')}}/assets/img/isco/isco.png" class="img-responsive" alt="ISCO"> 
+                      </div>
                     </div>
                   </div>
+                  <br>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <a href="{{URL::route('sg.soal')}}">
                         <span style="font-size:14.0em" class="glyphicon glyphicon-file animated bounceInUp" aria-hidden="true"></span>
                       </a>                              
                       <h4>SOAL</h4>
                     </div>
-                    <div class="col-md-6 ">
+                    <div class="col-md-4">
                       <a href="{{URL::route('sg.user')}}">
                         <span style="font-size:14.0em" class="glyphicon glyphicon-user animated bounceInUp" aria-hidden="true"></span>
                       </a>
                       <h4>USER</h4>
+                    </div>
+                    <div class="col-md-4">
+                      <a href="{{URL::route('sg.kontes')}}">
+                        <span style="font-size:14.0em" class="glyphicon glyphicon-book animated bounceInUp" aria-hidden="true"></span>
+                      </a>
+                      <h4>KONTES</h4>
                     </div>
                   </div>
                 </div>

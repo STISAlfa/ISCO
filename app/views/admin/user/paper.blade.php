@@ -182,7 +182,7 @@ $(document).ready(function() {
     var dt = $('#example').DataTable( {
     	"processing": true,
         "serverSide": true,
-        "ajaxSource": "http:\/\/localhost\/isco\/public\/admin\/api\/users\/paper",
+        "ajaxSource": "http:\/\/localhost\/ISCO\/public\/admin\/api\/users\/paper",
         "columns": [
             {
                 "class":          "details-control",

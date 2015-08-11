@@ -23,7 +23,7 @@ class UsersController extends Controller {
 
     //buat kontes
      public function getCurrentTime(){
-        $endTime = "2015-08-15 11:50:00";
+        $endTime = Input::get('time');
         $mytime = Carbon\Carbon::now()->toDateTimeString();
         $arr = explode(" ", $mytime);
         $arrdetail = explode(":", $arr[1]);

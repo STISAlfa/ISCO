@@ -29,7 +29,7 @@ Route::group(array('before' => 'auth'), function()
     //Route::get('sg/soal/user',array('as'=>'sg.soal.view','uses'=>'SGController@viewUserSoal'));
 	Route::get('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@getEditProfile'));
 	Route::post('edit-profile',array('as'=>'edit-profile','uses'=>'HomeController@postEditProfile'));
-    Route::post('currenttime',array('as'=>'currenttime.user','uses'=>'UsersController@getCurrentTime'));
+    Route::post('lefttime',array('as'=>'currenttime.user','uses'=>'UsersController@getCurrentTime'));
 });
 
 
@@ -51,6 +51,17 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
     Route::post('sg/soal/update',array('as'=>'sg.soal.update','uses'=>'SGController@updateSoal'));
     Route::post('sg/soal/add',array('as'=>'sg.soal.add','uses'=>'SGController@addSoal'));
     Route::get('sg/user',array('as'=>'sg.user','uses'=>'SGController@getUser'));
+    
+    Route::get('sg/kontes',array('as'=>'sg.kontes','uses'=>'SGController@getKontes'));
+    Route::post('sg/kontes/update',array('as'=>'sg.kontes.update','uses'=>'SGController@updateKontes'));
+    Route::get('sg/kontes/userlist',array('as'=>'sg.kontes.get.userlist','uses'=>'SGController@getUserList'));
+    Route::post('sg/kontes/userlist/submit',array('as'=>'sg.kontes.submit.userlist','uses'=>'SGController@postUserList'));
+
+
+    Route::get('sg/kontes/soallist',array('as'=>'sg.kontes.get.soallist','uses'=>'SGController@getSoalList'));
+    Route::post('sg/kontes/soallist/submit',array('as'=>'sg.kontes.submit.soallist','uses'=>'SGController@postSoalList'));
+
+
     Route::get('api/users/main', array('as'=>'api.users.main', 'uses'=>'UsersController@getDatatableUser'));
 
 
@@ -63,6 +74,7 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
 
     Route::get('service/soal',array('as'=>'soal.service','uses'=>'SGController@getPaketSoal'));
     Route::post('service/update-soal',array('as'=>'soal.update','uses'=>'SGController@updatePaketSoal'));
+    Route::post('service/update-kodesoal',array('as'=>'soal.update.kode','uses'=>'SGController@updateKodeSoal'));
     Route::post('service/update-opsi',array('as'=>'opsi.update','uses'=>'SGController@updatePaketSoalOpsi'));
 
     Route::get('service/pilih-opsi',array('as'=>'pilih.opsi','uses'=>'SGController@pilihOpsi'));

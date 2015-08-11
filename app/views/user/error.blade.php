@@ -43,14 +43,6 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    @if(Session::has('error'))
-      <?php $error = Session::get('error'); ?>
-      <div class="alert alert-danger">
-        <button class="close" data-dismiss="alert"></button>
-        <span>{{$error}}</span>
-      </div>
-    @endif
-
     @if(Session::has('success'))
       <?php $success = Session::get('success'); ?>
       <div class="alert alert-success">

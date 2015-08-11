@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'User View Soal')
+@section('title','Statistician Game - '.$kontes->nama)
 
 @section('header')
     @parent
@@ -13,12 +13,15 @@
         {{HTML::script('assets/plugins/jquery.countdown/jquery.countdown.js')}}
         <script>
         $(document).ready(function() {
-
+            
             $.ajax({
                type: 'POST',
                url: "{{URL::route('currenttime.user')}}",
+               data :{
+                  time : "{{$kontes->endtime}}"
+               },
                success: function(data) {
-                    
+                    console.log(data);
                       var $date =   new Date(new Date().valueOf() +  data*1000);
                       var $clock = $('#timerUser');
                       
@@ -218,6 +221,7 @@
                 </div> -->
             
         <div class="container">
+            <h1 style="text-align:center">{{$kontes->nama}}</h4>
             <div class="row">
                 <nav class="col-md-2 bs-docs-sidebar">
                     <ul id="sidebar" class="nav nav-stacked">
@@ -346,11 +350,12 @@
                             while( $ix<$tmp){
                             //for ($j=$start; $j <= $end; $j++) {
                                 $soal = $data[$ix]['deskripsi'];
-                                $jwb1 = $ans[$ix*5+0]['deskripsi'];
-                                $jwb2 = $ans[$ix*5+1]['deskripsi'];
-                                $jwb3 = $ans[$ix*5+2]['deskripsi'];
-                                $jwb4 = $ans[$ix*5+3]['deskripsi'];
-                                $jwb5 = $ans[$ix*5+4]['deskripsi'];
+                               
+                                $jwb1 = $data[$ix]->answer[0]['deskripsi'];
+                                $jwb2 = $data[$ix]->answer[1]['deskripsi'];
+                                $jwb3 = $data[$ix]->answer[2]['deskripsi'];
+                                $jwb4 = $data[$ix]->answer[3]['deskripsi'];
+                                $jwb5 = $data[$ix]->answer[4]['deskripsi'];
                                 $ix++;
                                 $judul = "Judul Soal Ke ".$ix;
                                 echo "<div id=\"GroupSubSoal".$ix."\" class=\"panel panel-danger\">"."\n";

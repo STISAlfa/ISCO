@@ -215,6 +215,7 @@
                     <div id="containerSoal">
                         <div id="detail">
                             <div class="inset">
+                                <h4 style="text-align:center;font-weight: bold;" contenteditable="true" id="kodesoal">{{$data[0]['kodesoal']}}</h4>
                                 <p>Deskripsi</p>
 
                                 <div id="desksoal" contenteditable="true">{{$data[0]['deskripsi']}}</div>
@@ -374,6 +375,51 @@
 
                 } );
             }
+
+            if (element.getAttribute( 'id' ) == 'kodesoal' ) {
+                // Customize the editor configuration on "configLoaded" event,
+                // which is fired after the configuration file loading and
+                // execution. This makes it possible to change the
+                // configuration before the editor initialization takes place.
+
+                
+
+                editor.on( 'configLoaded', function () {                    
+                    /*
+                    //Remove redundant plugins to make the editor simpler.
+                    editor.config.removePlugins = 'colorbutton,find,flash,font,' +
+                            'forms,iframe,image,newpage,removeformat,' +
+                            'smiley,specialchar,stylescombo,templates';
+                    
+                    // Rearrange the toolbar layout.
+                    editor.config.toolbarGroups = [
+                        { name: 'editing', groups: [ 'basicstyles', 'links' ] },
+                        { name: 'undo' },
+                        { name: 'clipboard', groups: [ 'selection', 'clipboard' ] },
+                        { name: 'about' }
+                    ];
+                    */
+                } );
+
+                editor.on( 'change', function ( ev ) {
+                    //ajax for editor here
+                    //document.getElementById( 'editorcontent2' ).innerHTML = editor.getData();
+                    //alert(editor.getData());
+                    
+                    $.ajax({
+                        url: "{{URL::route('soal.update.kode')}}",
+                        type : "POST",
+                        data: {
+                            id : idSoal,
+                            kodesoal : editor.getData()
+                        }
+                    }).done(function(){
+                        $('.active').html(editor.getData());
+                    });
+
+                } );
+            }
+
             if (element.getAttribute( 'id' ) == 'opt1' ) {
                 // Customize the editor configuration on "configLoaded" event,
                 // which is fired after the configuration file loading and
@@ -543,7 +589,7 @@
                         $('#opt4').parent().removeClass('correct');
                         $('#opt5').parent().removeClass('correct');
                     
-
+                        $('#kodesoal').html(data.soal.kodesoal);
                         $('#opt1').html(data.answer[0].deskripsi);
                         $('#opt2').html(data.answer[1].deskripsi);
                         $('#opt3').html(data.answer[2].deskripsi);
