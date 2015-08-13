@@ -34,9 +34,12 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+        <?php 
+          $idkontes = 1;
+        ?>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <a href="#"><button type="button" class="btn btn-default navbar-btn" disabled>Penyisihan</button></a>
+            <a href="{{URL::to('kontes/'.$idkontes)}}"><button type="button" class="btn btn-default navbar-btn">Penyisihan</button></a>
             <a href="logout"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
           </ul>
         </div><!-- /.navbar-collapse -->
