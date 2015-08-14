@@ -77,7 +77,9 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
     Route::post('service/update-kodesoal',array('as'=>'soal.update.kode','uses'=>'SGController@updateKodeSoal'));
     Route::post('service/update-opsi',array('as'=>'opsi.update','uses'=>'SGController@updatePaketSoalOpsi'));
 
-    Route::get('service/pilih-opsi',array('as'=>'pilih.opsi','uses'=>'SGController@pilihOpsi'));
+    Route::post('service/pilih-opsi',array('as'=>'pilih.opsi','uses'=>'SGController@pilihOpsi'));
+
+    Route::post('service/pilih-kategori',array('as'=>'pilih.kategori','uses'=>'SGController@pilihKategori'));
 
     Route::post('service/confirm',array('as'=>'service.confirm','uses'=>'UsersController@updateConfirm'));
 });

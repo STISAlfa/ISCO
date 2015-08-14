@@ -182,6 +182,12 @@
 
 @section('content')
 
+<?php
+    $kat[1]="Mudah";
+    $kat[2]="Sedang";
+    $kat[3]="Susah";
+?>
+
 <div>
      
     <div class="panel panel-isco">
@@ -215,7 +221,20 @@
                     <div id="containerSoal">
                         <div id="detail">
                             <div class="inset">
-                                <h4 style="text-align:center;font-weight: bold;" contenteditable="true" id="kodesoal">{{$data[0]['kodesoal']}}</h4>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h4 style="text-align:center;font-weight: bold;" contenteditable="true" id="kodesoal">{{$data[0]['kodesoal']}}</h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div style="float:right;padding:0 10px 0 0">
+                                        @if($data[0]['kategori'])
+                                            <h4 id="kategorisoal">{{$kat[$data[0]['kategori']]}}</h4>
+                                        @else
+                                            <h4>Belum Ditentukan</h4>
+                                        @endif
+                                        </div>
+                                    </div>
+                                </div>
                                 <p>Deskripsi</p>
 
                                 <div id="desksoal" contenteditable="true">{{$data[0]['deskripsi']}}</div>
@@ -254,7 +273,14 @@
                                             <h4 id="opt5" contenteditable="true">{{$ans[4]['deskripsi']}}</h4>
                                         </div>
                                     </div>
-                                    
+                                    <div class="btn-group">
+                                              <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Pilih Kategori Soal <span class="caret"></span></button>
+                                              <ul id="daftarkategori" class="dropdown-menu">
+                                                <li><a onclick="setkategori(1)">Mudah</a></li>
+                                                <li><a onclick="setkategori(2)">Sedang</a></li>
+                                                <li><a onclick="setkategori(3)">Susah</a></li>
+                                              </ul>
+                                            </div>
                                     <div style="float:right">
                                             <div class="btn-group">
                                               <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Pilih jawaban yang benar <span class="caret"></span></button>
@@ -289,12 +315,30 @@
 
         <script type="text/javascript">
         var idSoal= 'record_{{$data[0]['id']}}';
-        
+        var ar = [];
+        ar[0] = "Belum Ditentukan";
+        ar[1] = "Mudah";
+        ar[2] ="Sedang";
+        ar[3] ="Susah";
+
+        function setkategori(kat){
+            $.ajax({
+                url :"{{URL::route('pilih.kategori')}}",
+                type : "POST",
+                data :{
+                    idSoal : idSoal,
+                    kat : kat
+                }
+            }).done(function(){
+                $('#kategorisoal').html(ar[kat]);
+            });
+        }
+
         function coba( op , urutan){
 
             $.ajax({
                 url: "{{URL::route('pilih.opsi')}}",
-                type : "GET",
+                type : "POST",
                 data: {
                     idSoal : idSoal,
                     idAnswer : op
@@ -570,6 +614,7 @@
                 $(document).on('dblclick',"#listSoal div",function(){
                       idSoal = $(this).parent().attr("id");
                       var aa = $(this);     
+                      
                     $.ajax({
                         url: "{{URL::route('soal.service')}}",
                         type : "GET",
@@ -590,6 +635,10 @@
                         $('#opt5').parent().removeClass('correct');
                     
                         $('#kodesoal').html(data.soal.kodesoal);
+                        
+                        console.log(data.soal.kategori);
+                        $('#kategorisoal').html(ar[data.soal.kategori]);
+
                         $('#opt1').html(data.answer[0].deskripsi);
                         $('#opt2').html(data.answer[1].deskripsi);
                         $('#opt3').html(data.answer[2].deskripsi);

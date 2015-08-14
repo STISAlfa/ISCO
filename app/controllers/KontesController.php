@@ -149,6 +149,12 @@ class KontesController extends Controller {
 			if($this->getUdahmulai($kontes->starttime)+100>0){
 				if($this->getCurrentTime($kontes->endtime)+100>0){
 					$skor = 0;
+					$bobot[1][1]=2;
+					$bobot[1][0]=1;
+					$bobot[2][1]=3;
+					$bobot[2][0]=1;
+					$bobot[3][1]=5;
+					$bobot[3][0]=2;
 					$data = Soal_Branch::where('kontes_id','=',$idKontes)->get();
 					$soals = Soal::orderBy('no')->get();
 					$added = array();
@@ -177,10 +183,10 @@ class KontesController extends Controller {
 						foreach($arr_ans as $ans){
 							if($ans!="''"){
 								if($arr_ans[$temp]==("'".$added[$temp]->id_correct_answer."'")){
-									$skor+=4;
+									$skor+=$bobot[$added[$temp]->kategori][1];
 								}
 								else{
-									$skor-=1;
+									$skor-=$bobot[$added[$temp]->kategori][0];
 								}
 							}
 							$temp++;

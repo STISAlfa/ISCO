@@ -278,4 +278,12 @@ class SGController extends Controller {
 		$soal->save();
 	}
 
+	public function pilihKategori(){
+		$id_temp = Input::get('idSoal');
+		$id = str_replace("record_", "", $id_temp);
+		$soal = Soal::find($id);
+		$soal->kategori = Input::get('kat');
+		$soal->save();
+	}
+
 }
