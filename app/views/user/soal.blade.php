@@ -204,8 +204,8 @@
             
                 
 
-        <nav class="navbar navbar-default navbar-fixed-top navbarFixed" style="display:none;">
-          <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top navbarFixed" style="display:none;background-color: rgb(195, 100, 100); border-color: rgb(195, 100, 100);">
+          <div class="container-fluid" style="background-color: rgb(195, 100, 100);color: wheat;">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -214,13 +214,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a style="padding-top: 15px;" class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
+              <a style="padding-top: 15px; color:wheat;" class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <a style="margin-right: 30px; text-decoration: none; color: #777">Hi.. Tim {{Auth::user()->username}}!</a>
+                <a style="margin-right: 30px; text-decoration: none; color:wheat;">Hi.. Tim {{Auth::user()->username}}!</a>
                 <a href="{{URL::to('/')}}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
                 <a href="{{URL::to('logout')}}"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
               </ul>
