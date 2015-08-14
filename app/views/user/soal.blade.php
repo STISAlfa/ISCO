@@ -384,7 +384,7 @@
                                 for($i=0;$i<5;$i++){
                                     
                                     echo "
-                                    <li class=\"list-group-item\"> <input type=\"radio\""; if($res[$ix]=="'".$data[$ix]->answer[$i]['id']."'") echo "checked"; echo " name=\"soal".($ix+1)."\" value=\"".$data[$ix]->answer[$i]['id']."\"> ".$jwb[$i].$data[$ix]->answer[$i]['deskripsi']." </li>
+                                    <li class=\"list-group-item\"> <input type=\"radio\""; if(count($res)>0 && $res[$ix]=="'".$data[$ix]->answer[$i]['id']."'") echo "checked"; echo " name=\"soal".($ix+1)."\" value=\"".$data[$ix]->answer[$i]['id']."\"> ".$jwb[$i].$data[$ix]->answer[$i]['deskripsi']." </li>
                                     
                                     ";
                                 }
