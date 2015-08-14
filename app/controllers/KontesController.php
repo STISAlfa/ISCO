@@ -1,13 +1,10 @@
 <?php
-
 class KontesController extends Controller {
-
 	public function __construct()
     {
         // Perform CSRF check on all post/put/patch/delete requests
         $this->beforeFilter('csrf', array('on' => array('post', 'put', 'patch', 'delete')));
     }
-
     private function cekwaktu($a,$b){
         $a = explode("-", $a);
         $b = explode("-", $b);
@@ -26,7 +23,6 @@ class KontesController extends Controller {
         }
         return true;
     }
-
     //buat kontes
      public function getCurrentTime($end){
         $endTime = $end;
@@ -34,7 +30,6 @@ class KontesController extends Controller {
         $arr = explode(" ", $mytime);
         $arrdetail = explode(":", $arr[1]);
         $arr2 = explode(" ", $endTime);
-
         if($this->cekwaktu($arr[0],$arr2[0])){
             return 0;
         }
@@ -59,7 +54,6 @@ class KontesController extends Controller {
         
         return (int)$sec;
     }
-
     private function getUdahmulai($start){
     	$starttime = $start;
     	$mytime = Carbon\Carbon::now()->toDateTimeString();
@@ -74,7 +68,6 @@ class KontesController extends Controller {
         	return 1;
         }
         
-
         $sec = 0;
         if($arrdetail[0]<=$endTimedetail[0]){
             $sec += 3600*((int)$endTimedetail[0]-(int)$arrdetail[0]);
@@ -94,8 +87,6 @@ class KontesController extends Controller {
         
         return (int)$sec;
     }
-
-
 	public function getKontes($idKontes){
 		
 		$kontes = Kontes::find($idKontes);
@@ -106,13 +97,11 @@ class KontesController extends Controller {
 			if($this->getUdahmulai($kontes->starttime)>0){
 				if($this->getCurrentTime($kontes->endtime)>0){
 					$data = Soal_Branch::where('kontes_id','=',$idKontes)->get();
-
 					$soals = Soal::orderBy('no')->get();
 					
 					$added = array();
 					$c=0;
 					$d=0;
-
 					foreach ($soals as $soal) {
 						foreach($data as $useradd){
 							if($soal->id==$useradd->soal_id){
@@ -125,11 +114,8 @@ class KontesController extends Controller {
 						}
 						$d++;
 					}
-
 					$ret['added'] = $added;
 					$ret['lainnya'] = $soals;
-
-
 			    	
 			    	return View::make('user/soal')->with('data',$added)->with('kontes',$kontes);
 	     		}
@@ -144,13 +130,10 @@ class KontesController extends Controller {
 		else{
 			return Redirect::to('/')->with('error',"Mohon Maaf, Anda Tidak Berhak Mengakses Halaman Kontes Tersebut.");
 		}
-
 		
 	}
 	 
-
 	public function postKontes($idKontes){
-
 		$kontes = Kontes::find($idKontes);
 		if($kontes==null){
 			return 0;
@@ -175,10 +158,8 @@ class KontesController extends Controller {
 						}
 						$d++;
 					}
-
 					$ret['added'] = $added;
 					$ret['lainnya'] = $soals;
-
 					$answers = Input::get('answer');
 					$arr_ans = explode(';', $answers);
 					if(count($arr_ans)!=$c){
@@ -227,7 +208,6 @@ class KontesController extends Controller {
 		else{
 			return 0;
 		}
-
 		
 	}
 }

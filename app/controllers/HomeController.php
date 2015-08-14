@@ -50,8 +50,8 @@ class HomeController extends BaseController {
 		}
 		/*
 		for ($i=0; $i <$KontCount; $i++) { 
-			if (Auth::user()->registered($i) ) {
-				$dataKon = Kontes::find($i);
+			if (Auth::user()->registered($i+1) ) {
+				$dataKon = Kontes::find($i+1);
 				if(strtotime($dataKon->endtime) > strtotime("now"))
 					$dataKontes[$j++] = $dataKon;
 			}
