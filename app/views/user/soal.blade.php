@@ -22,12 +22,15 @@
                },
                success: function(data) {
                     console.log(data);
-                      var $date =   new Date(new Date().valueOf() +  data*1000);
-                      var $clock = $('#timerUser');
+                    var $date =   new Date(new Date().valueOf() +  data*1000);
+                    var $clock = $('#timerUser');
                       
-                      $clock.countdown($date, function(event) {
+                    $clock.countdown($date, function(event) {
+                        if( event.strftime('%H:%M:%S') == '00:05:00' ){
+                            $('#5menitlagi').modal('show');    
+                        }
                         $(this).html(event.strftime('%H:%M:%S'));
-                      }); 
+                    });
                }
               });
 
@@ -177,6 +180,7 @@
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
+<<<<<<< HEAD
                 margin-top:25px;
                 width:auto;
             }
@@ -184,6 +188,15 @@
                 position: fixed;
                 top:25px;
                 width: auto;
+=======
+                margin-top:35px;
+                width:228px;
+            }
+            #sidebar.affix {
+                position: fixed;
+                top:70px;
+                width:228px;
+>>>>>>> origin/master
             }
         }
         .affix,.affix-top {
@@ -201,24 +214,29 @@
             
                 
 
-                <!-- <div class="col-md-3">
-                    <div id="containerList">
-                        <ul id="listSoal">
-                            <?php
-                                $c = 0;
-                                foreach($data as $row){
-                                    if($c==0)
-                                        echo '<li id="record_'.$row['id'].'"><div class="dragdrop active">'.$row['kodesoal'].'</div></li>';
-                                    else 
-                                        echo '<li id="record_'.$row['id'].'"><div class="dragdrop">'.$row['kodesoal'].'</div></li>';
-                                    $c=$c+1;
-                                }
-                            
-                            ?>
-                            
-                        </ul>
-                    </div>
-                </div> -->
+        <nav class="navbar navbar-default navbar-fixed-top navbarFixed" style="display:none;">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <a style="margin-right: 30px; text-decoration: none; color: #777">Hi.. Tim {{Auth::user()->username}}!</a>
+                <a href="{{URL::to('/')}}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
+                <a href="{{URL::to('logout')}}"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
             
         <div class="container">
             <h1 style="text-align:center">{{$kontes->nama}}</h1>
@@ -393,7 +411,30 @@
                         $end += 5;
                     }?>
                 </div>
+<<<<<<< HEAD
             <!--</form>-->
+=======
+            <!-- </form> -->
+        
+
+              <!-- Modal -->
+              <div class="modal fade" id="5menitlagi" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Perhatian Tim {{Auth::user()->username}}!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Waktu yang tersisa tinggal 5 menit lagi.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+>>>>>>> origin/master
         </div>
         </div>
     
@@ -518,6 +559,17 @@
                     target: '.bs-docs-sidebar',
                     offset: 40
                 });
+
+                $(document).scroll(function() {
+
+                  var y = $(this).scrollTop();
+                  if (y > 100) {
+                    $('.navbarFixed').fadeIn();
+                  } else {
+                    $('.navbarFixed').fadeOut();
+                  }
+                });
+
             </script>
 
     @stop
