@@ -65,78 +65,139 @@ class UsersController extends Controller {
         return View::make('admin/user/paper');   
     }
 
-    public function getDataTableUser(){
-        return Datatable::collection(User::all())
-        ->showColumns('id', 'created_at','username','email','asal_sekolah','confirmed')
+      public function getDatatablePaper()
+    {
+
+        return Datatable::collection(Paper_Team::all())
+        ->showColumns('id', 'judulpaper','created_at','paper')
         ->addColumn('nama1', function($model){
-            $user = $model->anggota()->get();
+            $user = $model->member()->get();
              return $user[0]->nama;
         })
-        ->addColumn('nis1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->nis;
-        })
-        ->addColumn('tahunmasuk1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->tahun_masuk;
-        })
-        ->addColumn('handphone1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->handphone;
-        })
-        ->addColumn('kp1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->kartu_pelajar_dir;
-
-        })
+        /*
         ->addColumn('nama2', function($model){
-            $user = $model->anggota()->get();
+            $user = $model->member()->get();
              return $user[1]->nama;
         })
-        ->addColumn('nis2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->nis;
+        ->addColumn('nama3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->nama;
         })
+        */
+        ->addColumn('jeniskelamin1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->jeniskelamin;
+        })
+        /*
+        ->addColumn('jeniskelamin2', function($model){
+            $user = $model->member()->get();
+             return $user[1]->jeniskelamin;
+        })
+        ->addColumn('jeniskelamin3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->jeniskelamin;
+        })
+        */
+        ->addColumn('sma1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->sma;
+        })
+        /*
+        ->addColumn('sma2', function($model){
+            $user = $model->member()->get();
+             return $user[1]->sma;
+        })
+        ->addColumn('sma3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->sma;
+        })
+        */
+        ->addColumn('jurusan1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->jurusan;
+        })
+        /*
+        ->addColumn('jurusan2', function($model){
+            $user = $model->member()->get();
+             return $user[1]->jurusan;
+        })
+        ->addColumn('jurusan3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->jurusan;
+        })
+        */
+        ->addColumn('nim1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->nim;
+        })
+    /*
+        ->addColumn('nim2', function($model){
+            $user = $model->member()->get();
+             return $user[1]->nim;
+        })
+        ->addColumn('nim3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->nim;
+        })
+        */
+        ->addColumn('email1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->email;
+        })
+        /*
+        ->addColumn('email2', function($model){
+            $user = $model->member()->get();
+             return $user[1]->email;
+        })
+        ->addColumn('email3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->email;
+        })
+        */
+        ->addColumn('tahunmasuk1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->tahunmasuk;
+        })
+        /*
         ->addColumn('tahunmasuk2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->tahun_masuk;
+            $user = $model->member()->get();
+             return $user[1]->tahunmasuk;
         })
+        ->addColumn('tahunmasuk3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->tahunmasuk;
+        })
+        */
+        ->addColumn('handphone1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->handphone;
+        })
+        /*
         ->addColumn('handphone2', function($model){
-            $user = $model->anggota()->get();
+            $user = $model->member()->get();
              return $user[1]->handphone;
         })
+        ->addColumn('handphone3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->handphone;
+        })
+        */
+        ->addColumn('kp1', function($model){
+            $user = $model->member()->get();
+             return $user[0]->kartupelajar;
+        })
+        /*
         ->addColumn('kp2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->kartu_pelajar_dir;
-
+            $user = $model->member()->get();
+             return $user[1]->kartupelajar;
         })
-        ->addColumn('status',function($model){
-            $st = $model->status;
-            if($st==1){
-                return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
-                    <label class="btn btn-primary btn-white active">
-                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
-                    </label>
-                    <label class="btn btn-primary btn-white">
-                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
-                    </label>
-                </div>';
-                //return '<p><input id="switch-size" type="checkbox" checked data-size="mini"></p>';
-            }
-            else{
-                return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
-                    <label class="btn btn-primary btn-white">
-                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
-                    </label>
-                    <label class="btn btn-primary btn-white active">
-                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
-                    </label>
-                </div>';
-                //return '<p><input id="switch-size" type="checkbox" data-size="mini"></p>';
-            }
+        ->addColumn('kp3', function($model){
+            $user = $model->member()->get();
+             return $user[2]->kartupelajar;
         })
-        ->searchColumns('username')
-        ->orderColumns('id', 'username','asal_sekolah','status')
+        */
+        ->searchColumns('judulpaper')
+        ->orderColumns('id', 'judulpaper','created_at')
         ->setAliasMapping()
         ->make();
     }
