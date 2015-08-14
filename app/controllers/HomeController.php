@@ -37,7 +37,18 @@ class HomeController extends BaseController {
 		$dataKontes = array();
 		$data = Auth::user()->anggota()->orderBy('urutan')->get();
 		$KontCount = Kontes::all()->count();
+
+		$konteses = Kontes::orderBy('starttime')->get();
+
 		$j = 0;
+
+		foreach($konteses as $kontes){
+			if(Auth::user()->registered($kontes->id)){
+				if((strtotime($kontes->endtime) > strtotime("now")) && (strtotime($kontes->starttime) < strtotime("now")))
+					$dataKontes[$j++] = $kontes;
+			}	
+		}
+		/*
 		for ($i=0; $i <$KontCount; $i++) { 
 			if (Auth::user()->registered($i) ) {
 				$dataKon = Kontes::find($i);
@@ -45,6 +56,7 @@ class HomeController extends BaseController {
 					$dataKontes[$j++] = $dataKon;
 			}
 		}
+		*/
 		return View::make('user.profile')->with('data',$data)->with('dataKontes',$dataKontes);
 	}
 	public function getEditProfile(){
@@ -59,13 +71,8 @@ class HomeController extends BaseController {
 			'tahunmasuk1' => 'between:4,4',
 			'tahunmasuk2' => 'between:4,4',
             //'tahunmasuk3' => 'between:4,4',
-<<<<<<< HEAD
             'kp1' 		=> 'image|max:500',
             'kp2'		=> 'image|max:500'
-=======
-			'kp1' 		=> 'image|max:5000',
-			'kp2'		=> 'image|max:5000'
->>>>>>> origin/master
             //'kp3'		=> 'image|max:5000'
 			);
 		$validator = Validator::make(Input::all(), $rules);

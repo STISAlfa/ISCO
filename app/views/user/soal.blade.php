@@ -180,7 +180,7 @@
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
-<<<<<<< HEAD
+
                 margin-top:25px;
                 width:auto;
             }
@@ -188,15 +188,7 @@
                 position: fixed;
                 top:25px;
                 width: auto;
-=======
-                margin-top:35px;
-                width:228px;
-            }
-            #sidebar.affix {
-                position: fixed;
-                top:70px;
-                width:228px;
->>>>>>> origin/master
+
             }
         }
         .affix,.affix-top {
@@ -411,10 +403,7 @@
                         $end += 5;
                     }?>
                 </div>
-<<<<<<< HEAD
-            <!--</form>-->
-=======
-            <!-- </form> -->
+
         
 
               <!-- Modal -->
@@ -434,7 +423,7 @@
                   </div>
                 </div>
               </div>
->>>>>>> origin/master
+
         </div>
         </div>
     

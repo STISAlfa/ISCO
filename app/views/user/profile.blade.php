@@ -275,7 +275,7 @@
 			var $date =   new Date(new Date().valueOf() +  data*1000);
 			var $clock = $('#timerUser');
 			$clock.countdown($date, function(event) {
-				$(this).html(event.strftime('<h4><kbd>%H:%M:%S</h4></kbd>'));
+				$(this).html(event.strftime('<h4><kbd>%H:%M:%S</kbd></h4>'));
 			}); 
 		}
 	});
