@@ -214,7 +214,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
+              <a style="padding-top: 15px;" class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -421,7 +421,7 @@
                   </div>
                 </div>
               </div>
-              
+
         </div>
         </div>
     
