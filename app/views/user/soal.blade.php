@@ -180,6 +180,7 @@
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
+<<<<<<< HEAD
 
                 margin-top:25px;
                 width:auto;
@@ -189,6 +190,15 @@
                 top:25px;
                 width: auto;
 
+=======
+                margin-top:35px;
+                width:228px;
+            }
+            #sidebar.affix {
+                position: fixed;
+                top:70px;
+                width:228px;
+>>>>>>> origin/master
             }
         }
         .affix,.affix-top {
@@ -216,7 +226,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
+              <a style="padding-top: 15px;" class="navbar-brand" href="{{URL::to('/')}}" >Statistician Game 2015</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -403,7 +413,11 @@
                         $end += 5;
                     }?>
                 </div>
+<<<<<<< HEAD
 
+=======
+            <!-- </form> -->
+>>>>>>> origin/master
         
 
               <!-- Modal -->
