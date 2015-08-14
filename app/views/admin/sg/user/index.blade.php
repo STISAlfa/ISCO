@@ -24,7 +24,13 @@
 	@stop
 
 @section('content')
-
+		<div style="text-align:right">
+		   <h4><strong>Statistik Peserta</strong></h4>
+		   <p>total pendaftar : {{$data[0]+$data[1]-1}}</p>
+		   <p>terverifikasi : <span style="font-size:20px;color:red"><strong>{{$data[1]}}</strong></span></p>
+		   <p>belum terverifikasi : {{$data[0]-1}}</p>
+		   <p style="font-size:10px">* refresh window untuk mengupdate statistik peserta</p>
+		</div>
 		<div class="tabel">
 		<div class="tabell">
 					<div class="panel panel-default">

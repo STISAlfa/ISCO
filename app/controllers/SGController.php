@@ -222,7 +222,17 @@ class SGController extends Controller {
 	}
 
 	public function getUser(){
-		return View::make('admin/sg/user/index');
+		$users = User::all();
+		 $count[0] = 0;
+		 $count[1] = 0;
+		 foreach($users as $user){
+		    if($user->status){
+		      $count[1]++;
+		    }
+		    else $count[0]++;
+		 }
+		
+		return View::make('admin/sg/user/index')->with('data',$count);
 	}
 
 	public function getPaketSoal(){
