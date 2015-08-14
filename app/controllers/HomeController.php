@@ -59,13 +59,8 @@ class HomeController extends BaseController {
 			'tahunmasuk1' => 'between:4,4',
 			'tahunmasuk2' => 'between:4,4',
             //'tahunmasuk3' => 'between:4,4',
-<<<<<<< HEAD
-            'kp1' 		=> 'image|max:500',
-            'kp2'		=> 'image|max:500'
-=======
 			'kp1' 		=> 'image|max:5000',
 			'kp2'		=> 'image|max:5000'
->>>>>>> origin/master
             //'kp3'		=> 'image|max:5000'
 			);
 		$validator = Validator::make(Input::all(), $rules);
@@ -78,11 +73,9 @@ class HomeController extends BaseController {
 			$user1 = Anggota::find(Input::get('idag1'));
 			$user2 = Anggota::find(Input::get('idag2'));
 	        //$user3 = Anggota::find(Input::get('idag3'));
-
 			if(Input::get('nama1')!=null) $user1->nama = Input::get('nama1');
 			if(Input::get('nama2')!=null) $user2->nama = Input::get('nama2');
 	        //if(Input::get('nama3')!=null) $user3->nama = Input::get('nama3');
-
 			if(Input::get('nis1')!=null) $user1->nis = Input::get('nis1');
 			if(Input::get('nis2')!=null) $user2->nis = Input::get('nis2');
 	        //if(Input::get('nis3')!=null) $user3->nis = Input::get('nis3');
@@ -92,7 +85,6 @@ class HomeController extends BaseController {
 			if(Input::get('kontak1')!=null) $user1->handphone = Input::get('kontak1');
 			if(Input::get('kontak2')!=null) $user2->handphone = Input::get('kontak2');
 	        //if(Input::get('kontak3')!=null) $user3->handphone = Input::get('kontak3');
-
 			if(Input::file('kp1')!=null){
 				$destinationPath = 'assets/image/isco/sg/kp';
 				$file = Input::file('kp1');
@@ -116,7 +108,6 @@ class HomeController extends BaseController {
 				}
 				else return Redirect::to('edit-profile')->with('errors','Terjadi Kesalahan, Coba Daftar Lagi');
 			}
-
             /*
 			
 			if(Input::file('kp3')!=null){
