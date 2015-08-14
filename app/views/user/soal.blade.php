@@ -413,11 +413,7 @@
                         $end += 5;
                     }?>
                 </div>
-<<<<<<< HEAD
 
-=======
-            <!-- </form> -->
->>>>>>> origin/master
         
 
               <!-- Modal -->
