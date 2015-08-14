@@ -102,6 +102,10 @@ class KontesController extends Controller {
 					$added = array();
 					$c=0;
 					$d=0;
+					
+					$res_ans = Result::where('kontes_id','=',$idKontes)->where('user_id','=',Auth::user()->id)->first();
+					$res_arr = explode(";", $res_ans->answer_list);
+
 					foreach ($soals as $soal) {
 						foreach($data as $useradd){
 							if($soal->id==$useradd->soal_id){
@@ -117,7 +121,7 @@ class KontesController extends Controller {
 					$ret['added'] = $added;
 					$ret['lainnya'] = $soals;
 			    	
-			    	return View::make('user/soal')->with('data',$added)->with('kontes',$kontes);
+			    	return View::make('user/soal')->with('data',$added)->with('kontes',$kontes)->with('res',$res_arr);
 	     		}
 	     		else{
 	     			return Redirect::to('/')->with('error',"Kontes Sudah Berakhir. Terima Kasih");

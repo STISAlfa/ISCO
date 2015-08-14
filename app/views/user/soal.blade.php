@@ -180,7 +180,6 @@
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
-<<<<<<< HEAD
 
                 margin-top:25px;
                 width:auto;
@@ -189,17 +188,10 @@
                 position: fixed;
                 top:25px;
                 width: auto;
-
-=======
                 margin-top:35px;
                 width:228px;
             }
-            #sidebar.affix {
-                position: fixed;
-                top:70px;
-                width:228px;
->>>>>>> origin/master
-            }
+            
         }
         .affix,.affix-top {
             position:static;
@@ -239,7 +231,7 @@
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
-            
+          
         <div class="container">
             <h1 style="text-align:center">{{$kontes->nama}}</h1>
 
@@ -373,35 +365,37 @@
                             //for ($j=$start; $j <= $end; $j++) {
                                 $soal = $data[$ix]['deskripsi'];
                                
-                                $jwb1 = $data[$ix]->answer[0]['deskripsi'];
-                                $jwb2 = $data[$ix]->answer[1]['deskripsi'];
-                                $jwb3 = $data[$ix]->answer[2]['deskripsi'];
-                                $jwb4 = $data[$ix]->answer[3]['deskripsi'];
-                                $jwb5 = $data[$ix]->answer[4]['deskripsi'];
-                                $jwb1id = $data[$ix]->answer[0]['id'];
-                                $jwb2id = $data[$ix]->answer[1]['id'];
-                                $jwb3id = $data[$ix]->answer[2]['id'];
-                                $jwb4id = $data[$ix]->answer[3]['id'];
-                                $jwb5id = $data[$ix]->answer[4]['id'];
-                                $ix++;
-                                $judul = "Judul Soal Ke ".$ix;
-                                echo "<div id=\"GroupSubSoal".$ix."\" class=\"panel panel-danger\">"."\n";
+                                $jwb[0] = "A. ";
+                                $jwb[1] = "B. ";
+                                $jwb[2] = "C. ";
+                                $jwb[3] = "D. ";
+                                $jwb[4] = "E. ";
+                                //$jwb1id = $data[$ix]->answer[0]['id'];
+                                //$jwb2id = $data[$ix]->answer[1]['id'];
+                                //$jwb3id = $data[$ix]->answer[2]['id'];
+                                //$jwb4id = $data[$ix]->answer[3]['id'];
+                                //$jwb5id = $data[$ix]->answer[4]['id'];
+                                $judul = "Judul Soal Ke ".($ix+1);
+                                echo "<div id=\"GroupSubSoal".($ix+1)."\" class=\"panel panel-danger\">"."\n";
                                 echo "  <div class=\"panel-heading\">"."\n";
-                                echo "      <h3 class=\"panel-title text-center\"> $judul </h3>"."\n";
+                                echo "      <h3 class=\"panel-title text-center\"> ".$judul." </h3>"."\n";
                                 echo "  </div>"."\n";
                                 echo "  <div class=\"panel-body\">"."\n";
                                 echo "      ".$soal."</br>"."\n";
                                 echo "  </div>"."\n";
-                                echo "      "."<ul id=\"ListGroupSubSoal".$ix."\" class=\"list-group\">
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb1id\"> A. $jwb1 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb2id\"> B. $jwb2 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb3id\"> C. $jwb3 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb4id\"> D. $jwb4 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb5id\"> E. $jwb5 </li>
-                                </ul>
-                                <button class=\"macho btn btn-primary\" id=\"$ix\">Reset Jawaban</button>
+                                echo "      "."<ul id=\"ListGroupSubSoal".($ix+1)."\" class=\"list-group\">";
+
+                                for($i=0;$i<5;$i++){
+                                    
+                                    echo "
+                                    <li class=\"list-group-item\"> <input type=\"radio\""; if($res[$ix]=="'".$data[$ix]->answer[$i]['id']."'") echo "checked"; echo " name=\"soal".($ix+1)."\" value=\"".$data[$ix]->answer[$i]['id']."\"> ".$jwb[$i].$data[$ix]->answer[$i]['deskripsi']." </li>
+                                    
+                                    ";
+                                }
+                                $ix++;
                                 
-                                ";
+                                echo "</ul>\n
+                                <button class=\"macho btn btn-primary\" id=\"$ix\">Reset Jawaban</button>";
                                 echo "</div>"."\n";
                                 if($ix == $tmp){
                                     $tmp = (floor($ix/5)+1)*$tmp;
