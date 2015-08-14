@@ -104,8 +104,11 @@ class KontesController extends Controller {
 					$d=0;
 					
 					$res_ans = Result::where('kontes_id','=',$idKontes)->where('user_id','=',Auth::user()->id)->first();
+					if($res_ans!=null)
 					$res_arr = explode(";", $res_ans->answer_list);
-
+					else{
+						$res_arr = array();
+					}
 					foreach ($soals as $soal) {
 						foreach($data as $useradd){
 							if($soal->id==$useradd->soal_id){
