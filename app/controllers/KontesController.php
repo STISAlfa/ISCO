@@ -163,7 +163,7 @@ class KontesController extends Controller {
 					$answers = Input::get('answer');
 					$arr_ans = explode(';', $answers);
 					if(count($arr_ans)!=$c){
-						return count($arr_ans);	
+						return -1;	
 					}
 					else{
 						$temp = 0;
@@ -193,7 +193,7 @@ class KontesController extends Controller {
 				    		$new_res->score = $skor;
 				    		$new_res->save();
 				    	}
-						return $skor;
+						return 1;
 					}
 			    	
 	     		}
