@@ -180,17 +180,6 @@
         @media (min-width: 979px) {
             #sidebar.affix-top {
                 position: static;
-<<<<<<< HEAD
-
-                margin-top:25px;
-                width:auto;
-            }
-            #sidebar.affix {
-                position: fixed;
-                top:25px;
-                width: auto;
-
-=======
                 margin-top:35px;
                 width:228px;
             }
@@ -198,7 +187,6 @@
                 position: fixed;
                 top:70px;
                 width:228px;
->>>>>>> origin/master
             }
         }
         .affix,.affix-top {
@@ -434,6 +422,40 @@
                 </div>
               </div>
 
+              <div class="modal fade" id="sukses" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Hi.. Tim {{Auth::user()->username}}!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Berhasil! jawaban anda sudah tersimpan.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="gagal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Hi.. Tim {{Auth::user()->username}}!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Gagal! check your connection.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
         </div>
     
@@ -488,12 +510,11 @@
                         answer : ans
                     }
                 }).done(function(data){
-                    alert('berhasil! jawaban anda sudah tersimpan');
+                    $('#sukses').modal('show');
                     but.html("Submit");
                     but.prop('disabled',false);
-
                 }).fail(function(){
-                    alert('gagal, check your connection');
+                    $('#gagal').modal('show');
                     but.html("Submit");
                     but.prop('disabled',false);
                 });
@@ -560,7 +581,6 @@
                 });
 
                 $(document).scroll(function() {
-
                   var y = $(this).scrollTop();
                   if (y > 100) {
                     $('.navbarFixed').fadeIn();
