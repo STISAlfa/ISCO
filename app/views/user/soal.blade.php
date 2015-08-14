@@ -282,36 +282,44 @@
                     <div class="panel panel-info">
                     <div class="panel-heading">PERATURAN SOAL</div>
                         <div class="panel-body">
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
-                        Ini adalah bagian popup.. TestIni adalah bagian popup.. TestIni adalah bagian popup.. Test
+                            <div style="text-align:left">
+                            <ol>
+                                <li>Peserta login di website <a href="isco.sma.isi-indonesia.org">isco.sma.isi-indonesia.org</a> paling lambat 5 menit sebelum sesi dimulai.</li>
+                                <li>Soal penyisihan berupa pilihan ganda.</li>
+                                <li>Peserta akan diberikan 60 soal (20 soal mudah, 20 soal sedang, dan 20 soal sulit).</li>
+                                <li>Waktu pengerjaan 90 menit.</li>
+                                <li>Akan diambil 100 tim terbaik untuk mengikuti babak semifinal dan 5 tim cadangan yang akan dipanggil jika ada tim yang mengundurkan diri/didiskualifikasi.</li>
+                                <li>Sistem penilaian sesuai tabel berikut.</li>
+                            </ol>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <table border="1" cellpadding="1" cellspacing="1" style="width:352px">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 132px;">Kategori</td>
+                                                <td style="width: 95px;">Benar</td>
+                                                <td style="width: 124px;">Salah</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 132px;">Mudah</td>
+                                                <td style="width: 95px;">&nbsp;+2</td>
+                                                <td style="width: 124px;">&nbsp;-1</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 132px;">Sedang</td>
+                                                <td style="width: 95px;">&nbsp;+3</td>
+                                                <td style="width: 124px;">&nbsp;-1</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 132px;">Susah</td>
+                                                <td style="width: 95px;">&nbsp;+5</td>
+                                                <td style="width: 124px;">&nbsp;-2</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="popupfoot" class="panel-heading tutup"><a style="color:blue;" href="#">Oke</a> </div>
                     </div>
