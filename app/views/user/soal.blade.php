@@ -22,12 +22,15 @@
                },
                success: function(data) {
                     console.log(data);
-                      var $date =   new Date(new Date().valueOf() +  data*1000);
-                      var $clock = $('#timerUser');
+                    var $date =   new Date(new Date().valueOf() +  data*1000);
+                    var $clock = $('#timerUser');
                       
-                      $clock.countdown($date, function(event) {
+                    $clock.countdown($date, function(event) {
+                        if( event.strftime('%H:%M:%S') == '00:05:00' ){
+                            $('#5menitlagi').modal('show');    
+                        }
                         $(this).html(event.strftime('%H:%M:%S'));
-                      }); 
+                    });
                }
               });
 
@@ -392,6 +395,25 @@
                     }?>
                 </div>
             <!-- </form> -->
+        
+
+              <!-- Modal -->
+              <div class="modal fade" id="5menitlagi" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Perhatian Tim {{Auth::user()->username}}!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Waktu yang tersisa tinggal 5 menit lagi.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
         </div>
     
@@ -549,6 +571,7 @@
                     $('.navbarFixed').fadeOut();
                   }
                 });
+
             </script>
 
     @stop
