@@ -94,7 +94,15 @@ Route::filter('admin', function($route, $request)
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
+	if (Request::ajax()) 
+    {
+        if (Session::token() !== Request::header('csrftoken')) 
+        {
+            // Change this to return something your JavaScript can read...
+            throw new Illuminate\Session\TokenMismatchException;
+        }
+    } 
+	elseif (Session::token() != Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}

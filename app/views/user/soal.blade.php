@@ -178,12 +178,12 @@
             #sidebar.affix-top {
                 position: static;
                 margin-top:25px;
-                width:228px;
+                width:auto;
             }
             #sidebar.affix {
                 position: fixed;
                 top:25px;
-                width:228px;
+                width: auto;
             }
         }
         .affix,.affix-top {
@@ -221,7 +221,8 @@
                 </div> -->
             
         <div class="container">
-            <h1 style="text-align:center">{{$kontes->nama}}</h4>
+            <h1 style="text-align:center">{{$kontes->nama}}</h1>
+
             <div class="row">
                 <nav class="col-md-2 bs-docs-sidebar">
                     <ul id="sidebar" class="nav nav-stacked">
@@ -260,8 +261,8 @@
                             $start = $end+1;
                             $end += 5;
                         }?>
-                        <div id="kirim">
-                            <button id="tombolSubmit" class="btn btn-danger">Submit</button>
+                        <div id="tombolSubmit">
+                            <button id="kirim" class="btn btn-danger">Submit</button>
                         </div>
                         
                     </ul>
@@ -314,6 +315,7 @@
 
                 <!--Main Content -->
                 <!-- <form action="ajax/recheck.php" method="post"> -->
+                <!--{{ Form::open(array('url' => 'kontes/'.$kontes->id,'id'=>'kontes-form')) }}-->
                     <div class="col-md-10">
                         <?php 
                         $start = 1;
@@ -356,6 +358,11 @@
                                 $jwb3 = $data[$ix]->answer[2]['deskripsi'];
                                 $jwb4 = $data[$ix]->answer[3]['deskripsi'];
                                 $jwb5 = $data[$ix]->answer[4]['deskripsi'];
+                                $jwb1id = $data[$ix]->answer[0]['id'];
+                                $jwb2id = $data[$ix]->answer[1]['id'];
+                                $jwb3id = $data[$ix]->answer[2]['id'];
+                                $jwb4id = $data[$ix]->answer[3]['id'];
+                                $jwb5id = $data[$ix]->answer[4]['id'];
                                 $ix++;
                                 $judul = "Judul Soal Ke ".$ix;
                                 echo "<div id=\"GroupSubSoal".$ix."\" class=\"panel panel-danger\">"."\n";
@@ -366,11 +373,11 @@
                                 echo "      ".$soal."</br>"."\n";
                                 echo "  </div>"."\n";
                                 echo "      "."<ul id=\"ListGroupSubSoal".$ix."\" class=\"list-group\">
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"A\"> A. $jwb1 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"B\"> B. $jwb2 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"C\"> C. $jwb3 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"D\"> D. $jwb4 </li>
-                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"E\"> E. $jwb5 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb1id\"> A. $jwb1 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb2id\"> B. $jwb2 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb3id\"> C. $jwb3 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb4id\"> D. $jwb4 </li>
+                                <li class=\"list-group-item\"> <input type=\"radio\" name=\"soal".$ix."\" value=\"$jwb5id\"> E. $jwb5 </li>
                                 </ul>
                                 <button class=\"macho btn btn-primary\" id=\"$ix\">Reset Jawaban</button>
                                 
@@ -386,7 +393,7 @@
                         $end += 5;
                     }?>
                 </div>
-            <!-- </form> -->
+            <!--</form>-->
         </div>
         </div>
     
@@ -409,69 +416,46 @@
                     });
                 });
                                        
-                $(function sortSoal() {
-                    $("#listSoal").sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                        var order = $(this).sortable("serialize") + '&action=updateRecordsListings';
-                        $.ajax({
-                            url:"{{URL::Route('sg.soal.update')}}",
-                            type:"POST",
-                            beforeSend:function(xhr){
-                                var token = $('meta[name="csrf_token"]').attr('content');
-                                if(token){
-                                    return xhr.setRequestHeader('X-CSRF-TOKEN',token);
-                                }
-                            },
-                            data:order
-                        });
-
-                        //$.post("{{URL::Route('sg.soal.update')}}",order, function(datas){alert(datas)}); 
-                    }  
-
-                    
-                    });
-
-                    $(document).on('dblclick',"#listSoal div",function(){
-                        $("#listSoal div").removeClass("active");
-                        $(this).toggleClass('active');
-                    });
-
-                    /*
-                    $("#listSoal div").on('dblclick',function(){
-                        $("#listSoal div").removeClass("active");
-                        $(this).toggleClass('active');
-                        
-                    });
-                    */
-                    $("#tombolTambah").click(function(){
-                        var myli =  $("<li></li>").attr("id","record_10000");
-                        var mydiv = $("<div></div>").addClass("dragdrop").text("asdad");
-                        myli.append(mydiv);
-                        $("#listSoal").append(myli);
-                    });
-                }); 
-
+               
             
 
             $(document).on('click',"#kirim",function(){
+
                 var i;
-                var ans = '{';
-                for(i=1; i<=40; i++){
+                var ans="";
+                for(i=1; i<={{count($data)}}; i++){
                     var pil = $("input[name='soal"+i+"']:checked").val();
                     if( !pil ){
                         ans += '\'\'';    
                     }else{
                         ans += '\''+pil+'\'';    
                     }
-                    if( i < 40 ) ans += ';';
+                    if( i < {{count($data)}} ) ans += ';';
                 }
-                ans += '}';
+                
+                var but = $('#kirim');
+                but.html("loading");
+                but.prop('disabled',true);
 
+                console.log(ans);
                 $.ajax({
-                    //url: "",
+                    url: "{{URL::Route('sg.kontes.post',$kontes->id)}}",
+                    headers:{
+                        'csrftoken' : '{{csrf_token()}}'
+                    },
                     type : "POST",
                     data: {
                         answer : ans
                     }
+                }).done(function(data){
+                    alert('berhasil! jawaban anda sudah tersimpan');
+                    but.html("Submit");
+                    but.prop('disabled',false);
+
+                }).fail(function(){
+                    alert('gagal, check your connection');
+                    but.html("Submit");
+                    but.prop('disabled',false);
                 });
             });
 

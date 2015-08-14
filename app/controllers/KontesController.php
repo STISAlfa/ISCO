@@ -70,6 +70,10 @@ class KontesController extends Controller {
         if($this->cekwaktu($arr[0],$arr2[0])){
             return 0;
         }
+        else if($arr[0]!=$arr2[0]){
+        	return 1;
+        }
+        
 
         $sec = 0;
         if($arrdetail[0]<=$endTimedetail[0]){
@@ -154,14 +158,12 @@ class KontesController extends Controller {
 		else if(Auth::user()->registered($idKontes)){
 			if($this->getUdahmulai($kontes->starttime)+100>0){
 				if($this->getCurrentTime($kontes->endtime)+100>0){
+					$skor = 0;
 					$data = Soal_Branch::where('kontes_id','=',$idKontes)->get();
-
 					$soals = Soal::orderBy('no')->get();
-					
 					$added = array();
 					$c=0;
 					$d=0;
-
 					foreach ($soals as $soal) {
 						foreach($data as $useradd){
 							if($soal->id==$useradd->soal_id){
@@ -169,8 +171,7 @@ class KontesController extends Controller {
 								$c++;
 								unset($soals[$d]);
 								break;
-							}
-							
+							}	
 						}
 						$d++;
 					}
@@ -178,9 +179,42 @@ class KontesController extends Controller {
 					$ret['added'] = $added;
 					$ret['lainnya'] = $soals;
 
-
+					$answers = Input::get('answer');
+					$arr_ans = explode(';', $answers);
+					if(count($arr_ans)!=$c){
+						return count($arr_ans);	
+					}
+					else{
+						$temp = 0;
+						foreach($arr_ans as $ans){
+							if($ans!="''"){
+								if($arr_ans[$temp]==("'".$added[$temp]->id_correct_answer."'")){
+									$skor+=4;
+								}
+								else{
+									$skor-=1;
+								}
+							}
+							$temp++;
+						}
+						
+				    	$res = Result::where('user_id','=',Auth::user()->id)->where('kontes_id','=',$kontes->id)->first();
+				    	if($res!=null){
+				    		$res->score = $skor;
+				    		$res->answer_list = $answers;
+				    		$res->save();
+				    	}
+				    	else{
+				    		$new_res = new Result();
+				    		$new_res->user_id = Auth::user()->id;
+				    		$new_res->kontes_id = $kontes->id;
+				    		$new_res->answer_list = $answers;
+				    		$new_res->score = $skor;
+				    		$new_res->save();
+				    	}
+						return $skor;
+					}
 			    	
-			    	return View::make('user/soal')->with('data',$added)->with('kontes',$kontes);
 	     		}
 	     		else{
 	     			return 0;

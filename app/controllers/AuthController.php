@@ -32,8 +32,8 @@ class AuthController extends Controller {
 
         // Declare the rules for the form validation.
         $rules = array(
-            'username'  => 'Required|min:2|unique:user',
-            'email' => 'Required|email|unique:user',
+            'username'  => 'Required|min:2|unique:User',
+            'email' => 'Required|email|unique:User',
             'handphone' => 'Required|between:10,12',
             'asal_sekolah' => 'Required',
             'ketuatim' => 'Required',

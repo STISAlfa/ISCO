@@ -91,8 +91,8 @@ Route::post('check-username','RegistrationController@getUsername');
 Route::get('login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('login', 'AuthController@postLogin');
 
-Route::get('register', array('as' => 'register', 'uses' => 'AuthController@showRegister'));
-Route::post('register', 'AuthController@postRegister');
+//Route::get('register', array('as' => 'register', 'uses' => 'AuthController@showRegister'));
+//Route::post('register', 'AuthController@postRegister');
 
 
 Route::get('register/verify/{confirmationCode}', [
@@ -104,9 +104,9 @@ Route::get('register/verify/{confirmationCode}', [
 //Route::get('essay','LombaController@showEssay');
 //Route::post('essay','LombaController@postEssay');
 
-Route::get('paper','LombaController@showPaper');
-Route::post('paper','LombaController@postPaper');
-Route::get('paper/success','LombaController@showSuccess');
+//Route::get('paper','LombaController@showPaper');
+//Route::post('paper','LombaController@postPaper');
+//Route::get('paper/success','LombaController@showSuccess');
 
 Route::get('maintenance',array('as' => 'maintenance', 'uses' => 'AdminController@showMaintenance'));
 

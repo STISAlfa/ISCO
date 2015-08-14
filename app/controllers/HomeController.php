@@ -59,8 +59,8 @@ class HomeController extends BaseController {
             'tahunmasuk1' => 'between:4,4',
             'tahunmasuk2' => 'between:4,4',
             //'tahunmasuk3' => 'between:4,4',
-            'kp1' 		=> 'image|max:5000',
-            'kp2'		=> 'image|max:5000'
+            'kp1' 		=> 'image|max:500',
+            'kp2'		=> 'image|max:500'
             //'kp3'		=> 'image|max:5000'
         );
 

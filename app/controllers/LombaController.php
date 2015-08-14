@@ -121,7 +121,7 @@ class LombaController extends Controller {
 	        'jurusan1'    	   => 'required',                          // just a normal required validation
 	        'nim1'			   => 'required',                        // just a normal required validation
 	        'tahunmasuk1'	   => 'required',                        // just a normal required validation
-	        'email1'		   => 'required|email|unique:paper_member,email',   // required and must be unique in the Essay table
+	        'email1'		   => 'required|email|unique:Paper_Member,email',   // required and must be unique in the Essay table
 	        'handphone1'	   => 'required',                        // just a normal required validation
 	        'kp1'			   => 'required|image|max:5000',
 	        

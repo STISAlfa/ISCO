@@ -53,7 +53,7 @@ class SGController extends Controller {
 		$idKontes = Input::get('idKontes');
 		$data = Soal_Branch::where('kontes_id','=',$idKontes)->get();
 
-		$soals = Soal::orderBy('no')->get();
+		$soals = Soal::where('id_correct_answer','!=','NULL')->orderBy('no')->get();
 		
 		$added = array();
 		$c=0;

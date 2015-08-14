@@ -999,6 +999,7 @@ return array(
     'Psr\\Log\\Test\\LoggerInterfaceTest' => $vendorDir . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
     'RegistrationController' => $baseDir . '/app/controllers/RegistrationController.php',
     'RemindersController' => $baseDir . '/app/controllers/RemindersController.php',
+    'Result' => $baseDir . '/app/models/Result.php',
     'Roles' => $baseDir . '/app/models/Roles.php',
     'SGController' => $baseDir . '/app/controllers/SGController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
