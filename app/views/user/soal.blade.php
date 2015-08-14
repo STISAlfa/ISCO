@@ -371,7 +371,7 @@
                                 //$jwb3id = $data[$ix]->answer[2]['id'];
                                 //$jwb4id = $data[$ix]->answer[3]['id'];
                                 //$jwb5id = $data[$ix]->answer[4]['id'];
-                                $judul = "Judul Soal Ke ".($ix+1);
+                                $judul = ($data[$ix]['kodesoal']);
                                 echo "<div id=\"GroupSubSoal".($ix+1)."\" class=\"panel panel-danger\">"."\n";
                                 echo "  <div class=\"panel-heading\">"."\n";
                                 echo "      <h3 class=\"panel-title text-center\"> ".$judul." </h3>"."\n";
