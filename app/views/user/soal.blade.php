@@ -429,7 +429,8 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Hi.. Tim {{Auth::user()->username}}!</h4>
                     </div>
-                    <div class="modal-body">
+                    <div style="text-align: center;" class="modal-body">
+                      <span style="color: green; font-size: 30px;" class="glyphicon glyphicon-ok" ></span>
                       <p>Berhasil! jawaban anda sudah tersimpan.</p>
                     </div>
                     <div class="modal-footer">
@@ -446,7 +447,8 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Hi.. Tim {{Auth::user()->username}}!</h4>
                     </div>
-                    <div class="modal-body">
+                    <div style="text-align: center;" class="modal-body">
+                      <span style="color: red; font-size: 30px;" class="glyphicon glyphicon-remove"></span>
                       <p>Gagal! check your connection.</p>
                     </div>
                     <div class="modal-footer">
