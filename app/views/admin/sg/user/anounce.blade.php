@@ -4,6 +4,9 @@
 
 @section('header')
 @parent
+
+{{HTML::script('https://code.jquery.com/jquery-1.11.3.min.js')}}
+{{HTML::style('https://cdn.datatables.net/buttons/1.0.1/css/buttons.dataTables.min.css')}}
 {{HTML::style('//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css')}}	    
 {{HTML::style('assets/plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css')}}
 {{HTML::style('assets/plugins/highlight/highlight.css')}}
@@ -20,7 +23,8 @@
 
 @section('content')
 <div style="text-align:center">
-	<h2>Dashboard Score Peserta</h2>
+	<h4>Dashboard Score Peserta</h4>
+	<h2>{{$kontes}}</h2>
 </div>
 <div class="tabel">
 	<div class="tabell">
@@ -29,21 +33,34 @@
 				User
 			</div>
 			<div class="panel-body">
-				<table id="example" class="table table-bordered">
+				<table id="example" class="table table-bordered display">
 					<!--<table class="table table-striped table-bordered table-hover" id="example">-->
 					<thead>
 					<tr>
-							<th align="center" valign="middle" class="head1"></th>
-							<th align="center" valign="middle" class="head2">id</th>
-							<th align="center" valign="middle" class="head3">Waktu Pendaftaran</th>
-							<th align="center" valign="middle" class="head4">Nama Tim</th>
-							<th align="center" valign="middle" class="head5">E-Mail</th>
-							<th align="center" valign="middle" class="head6">Asal Sekolah</th>
-							<th align="center" valign="middle" class="head7">Skor</th>        
+							<th>Peringkat</th>
+							<th>id</th>
+							<th>Nama Tim</th>
+							<th>E-Mail</th>
+							<th>Asal Sekolah</th>
+							<th>Skor</th>        
 						</tr>
 					</thead>
 					<tbody>
-
+						<?php $i=0 ?>
+						@foreach($data as $datum)
+							<?php
+							$i++;
+							$user = User::find($datum->user_id);
+							?>
+							<tr>
+								<td>{{$i}}</td>
+								<td>{{$user->id}}</td>	
+								<td>{{$user->username}}</td>
+								<td>{{$user->email}}</td>
+								<td>{{$user->asal_sekolah}}</td>
+								<td>{{$datum->score}}</td>
+							</tr>
+						@endforeach
 					</tbody>
 				</table>
 
@@ -56,148 +73,31 @@
 
 @section('script')
 @parent
-{{HTML::script('assets/plugins/data-tables/jquery.dataTables.min.js')}}
+
+{{HTML::script('https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js')}}
+{{HTML::script('https://cdn.datatables.net/buttons/1.0.1/js/buttons.flash.min.js')}}
+{{HTML::script('https://cdn.datatables.net/buttons/1.0.1/js/dataTables.buttons.min.js')}}
+{{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js')}}
+{{HTML::script('https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js')}}
+{{HTML::script('https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js')}}
+{{HTML::script('https://cdn.datatables.net/buttons/1.0.1/js/buttons.html5.min.js')}}
+{{HTML::script('https://cdn.datatables.net/buttons/1.0.1/js/buttons.print.min.js')}}
 {{HTML::script('assets/plugins/data-tables/dataTables.bootstrap.js')}}
 {{HTML::script('assets/plugins/highlight/highlight.js')}}
 {{HTML::script('assets/plugins/bootstrap-switch/static/js/bootstrap-switch.js')}}
 {{HTML::script('assets/plugins/muthi/main.js')}}
 
 <script>	
-
-	function format ( d ) {
-		    // `d` is the original data object for the row
-		    return '<table class="table table-striped">'+
-		    '<tr>'+
-		    '<td colspan=2><b>Anggota 1 :</b></td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Nama:</td>'+
-		    '<td>'+d.nama1+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>NIS:</td>'+
-		    '<td>'+d.nis1+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Tahun Masuk:</td>'+
-		    '<td>'+d.tahunmasuk1+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>handphone:</td>'+
-		    '<td>'+d.handphone1+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Kartu Pelajar:</td>'+
-		    '<td>'+'<a href="/isco/public/'+d.kp1+'">'+d.kp1+'<br></a>'+
-		    '<img src="/isco/public/'+d.kp1+'" class="img img-thumbnail" width="304" height="236"></td>'+
-		    '</tr>'+
-
-		    '<tr>'+
-		    '<td colspan=2><b>Anggota 2 :</b></td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Nama:</td>'+
-		    '<td>'+d.nama2+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>NIS:</td>'+
-		    '<td>'+d.nis2+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Tahun Masuk:</td>'+
-		    '<td>'+d.tahunmasuk2+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>handphone:</td>'+
-		    '<td>'+d.handphone2+'</td>'+
-		    '</tr>'+
-		    '<tr>'+
-		    '<td>Kartu Pelajar:</td>'+
-		    '<td>'+'<a href="/isco/public/'+d.kp2+'">'+d.kp2+'<br></a>'+
-		    '<img src="/isco/public/'+d.kp2+'" class="img img-thumbnail" width="304" height="236"></td>'+
-		    '</tr>'+
-
-		    '</table>';
-		}
-
-
-		$(document).ready(function() {
-			
-			var dt =	$('#example').DataTable( {
-				"processing": true,
-				"serverSide": true,
-				"ajaxSource": "{{URL::Route('api.users.score')}}",
-				"columns": [
-				{
-					"class":          "details-control",
-					"orderable":      false,
-					"data":           null,
-					"defaultContent": ""
-				},
-				{"data" : "id"},
-				{ "data" : "created_at" },
-				{ "data" : "username" },
-				{ "data" : "email" },
-				{ "data" : "asal_sekolah" },
-				{ "data" : "score" }
-				],
-				"order": [[1, 'asc']]
-			} );
-
-			var detailRows = [];
-
-			$('#example tbody').on( 'click', 'tr td.details-control', function () {
-				var tr = $(this).closest('tr');
-				var row = dt.row( tr );
-				var idx = $.inArray( tr.attr('id'), detailRows );
-
-				if ( row.child.isShown() ) {
-					tr.removeClass( 'details' );
-					row.child.hide();
-
-            // Remove from the 'open' array
-            detailRows.splice( idx, 1 );
-        }
-        else {
-        	tr.addClass( 'details' );
-        	row.child( format( row.data() ) ).show();
-
-            // Add to the 'open' array
-            if ( idx === -1 ) {
-            	detailRows.push( tr.attr('id') );
-            }
-        }
+	$.fn.dataTable.Buttons.swfPath = '//cdn.datatables.net/buttons/1.0.0/swf/flashExport.swf';
+ 
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     } );
-
-    // On each draw, loop over the `detailRows` array and show any child rows
-    dt.on( 'draw', function () {
-    	$.each( detailRows, function ( i, id ) {
-    		$('#'+id+' td.details-control').trigger( 'click' );
-    	} );
-    } );
-
-
-
-    $(document).on("click",'[data-toggle^="buttons"]',function(){
-
-
-    	var idd = $(this).attr("id");
-    	var st = $(this).children(":first").hasClass("active").toString();
-
-    	$.ajax({
-    		url: "{{URL::route('service.confirm')}}",
-    		type : "POST",
-    		dataType : "json",
-    		data: {
-    			id : idd,
-    			st : st
-    		}
-    	});
-
-
-    });
-
-});	
+} );
 </script>
 
 @stop

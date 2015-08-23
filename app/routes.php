@@ -51,7 +51,7 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
     Route::post('sg/soal/update',array('as'=>'sg.soal.update','uses'=>'SGController@updateSoal'));
     Route::post('sg/soal/add',array('as'=>'sg.soal.add','uses'=>'SGController@addSoal'));
     Route::get('sg/user',array('as'=>'sg.user','uses'=>'SGController@getUser'));
-    Route::get('sg/anounce', array('as'=>'sg.user.anounce','uses'=>'SGController@getScore'));
+    Route::get('sg/anounce/{id}', array('as'=>'sg.user.anounce','uses'=>'SGController@getScore'));
 
     Route::get('sg/kontes',array('as'=>'sg.kontes','uses'=>'SGController@getKontes'));
     Route::post('sg/kontes/update',array('as'=>'sg.kontes.update','uses'=>'SGController@updateKontes'));
