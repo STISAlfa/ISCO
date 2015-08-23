@@ -59,6 +59,7 @@ class HomeController extends BaseController {
 		*/
 		return View::make('user.profile')->with('data',$data)->with('dataKontes',$dataKontes);
 	}
+	
 	public function getEditProfile(){
 		$data = Auth::user()->anggota()->orderBy('urutan')->get();
 		return View::make('user/edit')->with('data',$data);

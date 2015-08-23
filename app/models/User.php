@@ -38,12 +38,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function anggota()
     {
-        return $this->hasMany('Anggota','user_id');
+        return $this->hasMany('anggota','user_id');
+    }
+
+    public function skor()
+    {
+        return $this->belongsTo('result','user_id');
     }
 
 	public function isAdmin(){
 		return $this->role->name === 'admin';	
 	}
 	 
-
 }

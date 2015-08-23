@@ -51,7 +51,8 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
     Route::post('sg/soal/update',array('as'=>'sg.soal.update','uses'=>'SGController@updateSoal'));
     Route::post('sg/soal/add',array('as'=>'sg.soal.add','uses'=>'SGController@addSoal'));
     Route::get('sg/user',array('as'=>'sg.user','uses'=>'SGController@getUser'));
-    
+    Route::get('sg/anounce', array('as'=>'sg.user.anounce','uses'=>'SGController@getScore'));
+
     Route::get('sg/kontes',array('as'=>'sg.kontes','uses'=>'SGController@getKontes'));
     Route::post('sg/kontes/update',array('as'=>'sg.kontes.update','uses'=>'SGController@updateKontes'));
     Route::get('sg/kontes/userlist',array('as'=>'sg.kontes.get.userlist','uses'=>'SGController@getUserList'));
@@ -63,7 +64,7 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
 
 
     Route::get('api/users/main', array('as'=>'api.users.main', 'uses'=>'UsersController@getDatatableUser'));
-
+    Route::get('api/users/score', array('as'=>'api.users.score', 'uses'=>'UsersController@getDatatableScore'));
 
     Route::get('api/users/paper', array('as'=>'api.users.paper', 'uses'=>'UsersController@getDatatablePaper'));
 

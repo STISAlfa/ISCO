@@ -223,6 +223,20 @@ class SGController extends Controller {
 
 	public function getUser(){
 		$users = User::all();
+		$userss = $users->join('result', 'result.user_id', '=', 'id');
+		 $count[0] = 0;
+		 $count[1] = 0;
+		 foreach($userss as $user){
+		    if($user->status){
+		      $count[1]++;
+		    }
+		    else $count[0]++;
+		 }
+		return View::make('admin/sg/user/index')->with('data',$count);
+	}
+
+	public function getScore(){
+		$users = User::all();
 		 $count[0] = 0;
 		 $count[1] = 0;
 		 foreach($users as $user){
@@ -231,8 +245,7 @@ class SGController extends Controller {
 		    }
 		    else $count[0]++;
 		 }
-		
-		return View::make('admin/sg/user/index')->with('data',$count);
+		return View::make('admin/sg/user/anounce')->with('data',$count);
 	}
 
 	public function getPaketSoal(){

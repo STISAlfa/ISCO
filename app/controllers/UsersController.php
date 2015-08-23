@@ -65,7 +65,7 @@ class UsersController extends Controller {
         return View::make('admin/user/paper');   
     }
 
-     public function getDataTableUser(){
+    public function getDataTableUser(){
         return Datatable::collection(User::all())
         ->showColumns('id', 'created_at','username','email','asal_sekolah','confirmed')
         ->addColumn('nama1', function($model){
@@ -137,6 +137,60 @@ class UsersController extends Controller {
         })
         ->searchColumns('username')
         ->orderColumns('id', 'username','asal_sekolah','status')
+        ->setAliasMapping()
+        ->make();
+    }
+
+    public function getDataTableScore(){
+        return Datatable::collection(DB::table('user')->join('result', 'result.user_id', '=', 'user.id')->get())
+        ->showColumns('id', 'created_at','username','email','asal_sekolah','score')
+        ->addColumn('nama1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->nama;
+        })
+        ->addColumn('nis1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->nis;
+        })
+        ->addColumn('tahunmasuk1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->tahun_masuk;
+        })
+        ->addColumn('handphone1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->handphone;
+        })
+        ->addColumn('kp1', function($model){
+            $user = $model->anggota()->get();
+             return $user[0]->kartu_pelajar_dir;
+        })
+        ->addColumn('nama2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->nama;
+        })
+        ->addColumn('nis2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->nis;
+        })
+        ->addColumn('tahunmasuk2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->tahun_masuk;
+        })
+        ->addColumn('handphone2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->handphone;
+        })
+        ->addColumn('score', function($model){
+            $user = $model->score;
+             return $user[1]->score;
+        })
+        ->addColumn('kp2', function($model){
+            $user = $model->anggota()->get();
+             return $user[1]->kartu_pelajar_dir;
+
+        })
+        ->searchColumns('username')
+        ->orderColumns('id', 'username','asal_sekolah','score')
         ->setAliasMapping()
         ->make();
     }
