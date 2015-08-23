@@ -29,8 +29,8 @@
                         if( event.strftime('%H:%M:%S') == '00:05:00' ){
                             $('#5menitlagi').modal('show');    
                         }
-                        else if( event.strftime('%H:%M:%S') == '00:00:00' ){
-                            $('#waktuhabis').modal('show');    
+                        if( event.strftime('%H:%M:%S') == '00:00:00' ){
+                            $('#WaktuHabis').modal('show');    
                         }
                         $(this).html(event.strftime('%H:%M:%S'));
                     });
@@ -236,9 +236,10 @@
 
             <div class="row">
                 <nav class="col-md-2 bs-docs-sidebar">
-                    <ul id="sidebar" class="nav nav-stacked">
                         
+                    <ul id="sidebar" class="nav nav-stacked" style="line-height: 20px">
                         <p>waktu tersisa : <br><span id="timerUser"> </p>
+                        
                         <?php 
                         $start = 1;
                         $end   = 5;
@@ -263,7 +264,7 @@
                                 $ix++;
                                 echo "<li><a href=\"#GroupSubSoal".$ix."\">Soal ".$ix."</a></li>"."\n";
                                 if($ix == $tmp){
-                                    $tmp = (floor($ix/5)+1)*$tmp;
+                                    $tmp = (floor($ix/5)+1)*5;
                                     break;
                                 }
                             }
@@ -286,42 +287,27 @@
                     <div class="panel-heading">PERATURAN SOAL</div>
                         <div class="panel-body">
                             <div style="text-align:left">
-                            <ol>
-                                <li>Peserta login di website <a href="isco.sma.isi-indonesia.org">isco.sma.isi-indonesia.org</a> paling lambat 5 menit sebelum sesi dimulai.</li>
-                                <li>Soal penyisihan berupa pilihan ganda.</li>
-                                <li>Peserta akan diberikan 60 soal (20 soal mudah, 20 soal sedang, dan 20 soal sulit).</li>
-                                <li>Waktu pengerjaan 90 menit.</li>
-                                <li>Akan diambil 100 tim terbaik untuk mengikuti babak semifinal dan 5 tim cadangan yang akan dipanggil jika ada tim yang mengundurkan diri/didiskualifikasi.</li>
-                                <li>Sistem penilaian sesuai tabel berikut.</li>
-                            </ol>
-                            <div class="row">
-                                <div class="col-md-6 col-md-offset-3">
-                                    <table border="1" cellpadding="1" cellspacing="1" style="width:352px">
-                                        <tbody>
-                                            <tr>
-                                                <td style="width: 132px;">Kategori</td>
-                                                <td style="width: 95px;">Benar</td>
-                                                <td style="width: 124px;">Salah</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 132px;">Mudah</td>
-                                                <td style="width: 95px;">&nbsp;+2</td>
-                                                <td style="width: 124px;">&nbsp;-1</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 132px;">Sedang</td>
-                                                <td style="width: 95px;">&nbsp;+3</td>
-                                                <td style="width: 124px;">&nbsp;-1</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 132px;">Susah</td>
-                                                <td style="width: 95px;">&nbsp;+5</td>
-                                                <td style="width: 124px;">&nbsp;-2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                </div>
+                              <p>Babak pertama dalam lomba Statistician Game adalah babak penyisihan. Babak&nbsp;penyisihan ini akan dilaksanakan secara online di website resmi isco.sma.isi-indonesia.org.&nbsp;Berikut adalah ketentuan lebih lanjut mengenai babak penyisihan:</p>
+
+<ol>
+    <li>Peserta yang bisa mengikuti babak penyisihan Statistician Game adalah peserta yang telah resmi terdaftar dan terverifikasi sebagai peserta Statistician Game.</li>
+    <li>Penyisihan dilaksanakan secara online di website resmi isco.isi-indonesia.org pada&nbsp;tanggal 23 Agustus 2015. Terdapat satu sesi pengerjaan, yaitu pukul 10.00 s/d 11.30&nbsp;WIB</li>
+    <li>Dalam babak penyisihan, terdapat 60 soal pilihan ganda dengan waktu pengerjaan 90&nbsp;menit.</li>
+    <li>Tidak ada nilai mati/nilai standar dalam babak ini. Penilaian dilakukan dengan&nbsp;menjumlahkan skor peserta.</li>
+    <li>Jumlah peserta yang berhak melanjut ke babak selanjutnya adalah 100 tim dengan&nbsp;skor tertinggi. Selain itu, akan terdapat 10 finalis cadangan.</li>
+    <li>Pengumuman mengenai hasil babak penyisihan dapat dilihat di website resmi isco.isi-indonesia.org &nbsp;pada tanggal 26 Agustus 2015.</li>
+    <li>Peserta yang lolos ke babak selanjutnya, diharuskan melakukan konfirmasi dan&nbsp;registrasi ulang.</li>
+    <li>Setiap soal mempunyai bobot nilai sebagai berikut:&nbsp;</li>
+</ol>
+
+<ul>
+    <li>Soal mudah benar +2, salah -1, kosong 0</li>
+    <li>Soal sedang benar +3, salah -1, kosong 0</li>
+    <li>Soal sulit benar +5, salah -2, kosong 0</li>
+</ul>
+
+<p>&nbsp;</p>
+
                             </div>
                         </div>
                         <div id="popupfoot" class="panel-heading tutup"><a style="color:blue;" href="#">Oke</a> </div>
@@ -351,7 +337,9 @@
                         $tmp = 5;
 
                         for ($i=0; $i < $N; $i++) {
+                            
                             $end = ( $end > $sz ) ? $sz : $end;
+                            //echo $start;
                             // $soal = "
                             // Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                             // tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -382,7 +370,7 @@
                                 //$jwb3id = $data[$ix]->answer[2]['id'];
                                 //$jwb4id = $data[$ix]->answer[3]['id'];
                                 //$jwb5id = $data[$ix]->answer[4]['id'];
-                                $judul = ($data[$ix]['kodesoal']);
+                                $judul = "Soal ".($ix+1) ;
                                 echo "<div id=\"GroupSubSoal".($ix+1)."\" class=\"panel panel-danger\">"."\n";
                                 echo "  <div class=\"panel-heading\">"."\n";
                                 echo "      <h3 class=\"panel-title text-center\"> ".$judul." </h3>"."\n";
@@ -392,10 +380,10 @@
                                 echo "  </div>"."\n";
                                 echo "      "."<ul id=\"ListGroupSubSoal".($ix+1)."\" class=\"list-group\">";
 
-                                for($i=0;$i<5;$i++){
+                                for($j=0;$j<5;$j++){
                                     
                                     echo "
-                                    <li class=\"list-group-item\"> <input type=\"radio\""; if(count($res)>0 && $res[$ix]=="'".$data[$ix]->answer[$i]['id']."'") echo "checked"; echo " name=\"soal".($ix+1)."\" value=\"".$data[$ix]->answer[$i]['id']."\"> ".$jwb[$i].$data[$ix]->answer[$i]['deskripsi']." </li>
+                                    <li class=\"list-group-item\"> <input type=\"radio\""; if(count($res)>0 && $res[$ix]=="'".$data[$ix]->answer[$j]['id']."'") echo "checked"; echo " name=\"soal".($ix+1)."\" value=\"".$data[$ix]->answer[$j]['id']."\"> ".$jwb[$j].$data[$ix]->answer[$j]['deskripsi']." </li>
                                     
                                     ";
                                 }
@@ -405,7 +393,7 @@
                                 <button class=\"macho btn btn-primary\" id=\"$ix\">Reset Jawaban</button>";
                                 echo "</div>"."\n";
                                 if($ix == $tmp){
-                                    $tmp = (floor($ix/5)+1)*$tmp;
+                                    $tmp = (floor($ix/5)+1)*5;
                                     break;
                                 }
                             }
@@ -426,7 +414,7 @@
                       <h4 class="modal-title">Perhatian Tim {{Auth::user()->username}}!</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Waktu yang tersisa tinggal 5 menit lagi.</p>
+                      <p>Waktu yang tersisa tinggal 5 menit lagi. Jangan Lupa Submit Jawaban</p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -434,20 +422,19 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Modal -->
-              <div class="modal fade" id="waktuhabis" role="dialog">
+              
+              <div class="modal fade" id="WaktuHabis" role="dialog">
                 <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <a href="{{URL::to('/')}}"><button type="button" class="close" data-dismiss="modal">&times;</button></a>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Perhatian Tim {{Auth::user()->username}}!</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Waktu habis. Kontes Telah Berakhir</p>
+                      <p>Waktu Habis! Kontes Telah Berakhir</p>
                     </div>
                     <div class="modal-footer">
-                      <a href="{{URL::to('/')}}"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -543,9 +530,16 @@
                         answer : ans
                     }
                 }).done(function(data){
+                   if(data==1){
                     $('#sukses').modal('show');
                     but.html("Submit");
                     but.prop('disabled',false);
+                   }
+                   else{
+                    $('#WaktuHabis').modal('show');
+                    but.html("Submit");
+                    but.prop('disabled',false);
+                   }
                 }).fail(function(){
                     $('#gagal').modal('show');
                     but.html("Submit");
@@ -626,5 +620,3 @@
 
     @stop
     
-
-
