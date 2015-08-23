@@ -146,8 +146,8 @@ class KontesController extends Controller {
 			return 0;
 		}
 		else if(Auth::user()->registered($idKontes)){
-			if($this->getUdahmulai($kontes->starttime)+100>0){
-				if($this->getCurrentTime($kontes->endtime)+100>0){
+			if($this->getUdahmulai($kontes->starttime)>0){
+				if($this->getCurrentTime($kontes->endtime)>0){
 					$skor = 0;
 					$bobot[1][1]=2;
 					$bobot[1][0]=1;

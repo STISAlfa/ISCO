@@ -103,6 +103,8 @@ Route::get('register/verify/{confirmationCode}', [
     'uses' => 'AuthController@confirm'
 ]);
 
+Route::get('reminder/user','AdminController@emailReminder');
+
 
 //Route::get('essay','LombaController@showEssay');
 //Route::post('essay','LombaController@postEssay');

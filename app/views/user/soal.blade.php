@@ -29,6 +29,9 @@
                         if( event.strftime('%H:%M:%S') == '00:05:00' ){
                             $('#5menitlagi').modal('show');    
                         }
+                        else if( event.strftime('%H:%M:%S') == '00:00:00' ){
+                            $('#waktuhabis').modal('show');    
+                        }
                         $(this).html(event.strftime('%H:%M:%S'));
                     });
                }
@@ -427,6 +430,24 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="waktuhabis" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <a href="{{URL::to('/')}}"><button type="button" class="close" data-dismiss="modal">&times;</button></a>
+                      <h4 class="modal-title">Perhatian Tim {{Auth::user()->username}}!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Waktu habis. Kontes Telah Berakhir</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="{{URL::to('/')}}"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
                     </div>
                   </div>
                 </div>
