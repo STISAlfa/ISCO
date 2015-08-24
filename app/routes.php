@@ -65,6 +65,7 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth|admin')), functi
 
     Route::get('api/users/main', array('as'=>'api.users.main', 'uses'=>'UsersController@getDatatableUser'));
     Route::get('api/users/score', array('as'=>'api.users.score', 'uses'=>'UsersController@getDatatableScore'));
+    Route::post('api/users/cekSama', array('as'=>'api.users.ceksama', 'uses'=>'UsersController@getKesamaan'));
 
     Route::get('api/users/paper', array('as'=>'api.users.paper', 'uses'=>'UsersController@getDatatablePaper'));
 

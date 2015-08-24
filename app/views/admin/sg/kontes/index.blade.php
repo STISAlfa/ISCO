@@ -328,7 +328,7 @@
 
 
 
-							<button class="btn btn-success" disabled>Preview</button>
+							<a href="./anounce/{{$kontes->id}}"><button class="btn btn-success">Hasil</button></a>
 							<button class="btn btn-danger" disabled>Delete</button>
 							</div>
 				      	</div>

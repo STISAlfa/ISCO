@@ -22,7 +22,7 @@ class UsersController extends Controller {
     }
 
     //buat kontes
-     public function getCurrentTime(){
+    public function getCurrentTime(){
         $endTime = Input::get('time');
         $mytime = Carbon\Carbon::now()->toDateTimeString();
         $arr = explode(" ", $mytime);
@@ -52,14 +52,42 @@ class UsersController extends Controller {
         return (int)$sec;
     }
 
-    public function getDashboard(){
+    public function getKesamaan(){
+        $user1 = Input::get('user1');
+        $user1 = User::where('username', $user1)->first();
+        $jwbn1 = Result::where('user_id', $user1->id)->first();
+        $user1 = explode(";", $jwbn1->answer_list);
 
+        $user2 = Input::get('user2');
+        $user2 = User::where('username', $user2)->first();
+        $jwbn2 = Result::where('user_id', $user2->id)->first();
+        $user2 = explode(";", $jwbn2->answer_list);
+        
+        $sama=0;
+        $ygsama=null;
+
+        for ($i=0; $i < count($user1); $i++) { 
+            if($user1[$i]==$user2[$i]){
+                $sama++;
+                $ygsama=$ygsama.$i.", ";
+            }
+        }
+        $mirip = ($sama/60)*100;
+        $var = number_format((float)$mirip, 2, '.', ''); 
+
+        if($mirip>80){
+            $var = $var."%<br>"
+                ."Jawaban Yang Sama: <br>".$ygsama;
+        }
+
+        return $var."";
+        
     }
     
 
-	public function getUserEssay(){
+    public function getUserEssay(){
         return View::make('admin/user/essay');   
-	}
+    }
 
     public function getUserPaper(){
         return View::make('admin/user/paper');   
@@ -70,140 +98,140 @@ class UsersController extends Controller {
         ->showColumns('id', 'created_at','username','email','asal_sekolah','confirmed')
         ->addColumn('nama1', function($model){
             $user = $model->anggota()->get();
-             return $user[0]->nama;
+            return $user[0]->nama;
         })
         ->addColumn('nis1', function($model){
             $user = $model->anggota()->get();
-             return $user[0]->nis;
+            return $user[0]->nis;
         })
         ->addColumn('tahunmasuk1', function($model){
             $user = $model->anggota()->get();
-             return $user[0]->tahun_masuk;
+            return $user[0]->tahun_masuk;
         })
         ->addColumn('handphone1', function($model){
             $user = $model->anggota()->get();
-             return $user[0]->handphone;
+            return $user[0]->handphone;
         })
         ->addColumn('kp1', function($model){
             $user = $model->anggota()->get();
-             return $user[0]->kartu_pelajar_dir;
+            return $user[0]->kartu_pelajar_dir;
 
         })
         ->addColumn('nama2', function($model){
             $user = $model->anggota()->get();
-             return $user[1]->nama;
+            return $user[1]->nama;
         })
         ->addColumn('nis2', function($model){
             $user = $model->anggota()->get();
-             return $user[1]->nis;
+            return $user[1]->nis;
         })
         ->addColumn('tahunmasuk2', function($model){
             $user = $model->anggota()->get();
-             return $user[1]->tahun_masuk;
+            return $user[1]->tahun_masuk;
         })
         ->addColumn('handphone2', function($model){
             $user = $model->anggota()->get();
-             return $user[1]->handphone;
+            return $user[1]->handphone;
         })
         ->addColumn('kp2', function($model){
             $user = $model->anggota()->get();
-             return $user[1]->kartu_pelajar_dir;
+            return $user[1]->kartu_pelajar_dir;
 
         })
         ->addColumn('status',function($model){
             $st = $model->status;
             if($st==1){
                 return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
-                    <label class="btn btn-primary btn-white active">
-                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
-                    </label>
-                    <label class="btn btn-primary btn-white">
-                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
-                    </label>
-                </div>';
+                <label class="btn btn-primary btn-white active">
+                    <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
+                </label>
+                <label class="btn btn-primary btn-white">
+                    <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
+                </label>
+            </div>';
                 //return '<p><input id="switch-size" type="checkbox" checked data-size="mini"></p>';
-            }
-            else{
-                return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
-                    <label class="btn btn-primary btn-white">
-                        <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
-                    </label>
-                    <label class="btn btn-primary btn-white active">
-                        <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
-                    </label>
-                </div>';
+        }
+        else{
+            return '<div class="btn-group centered" data-toggle="buttons" id="'.$model->id.'">
+            <label class="btn btn-primary btn-white">
+                <input type="radio" name="options" id="aktif" autocomplete="off"> Aktif
+            </label>
+            <label class="btn btn-primary btn-white active">
+                <input type="radio" name="options" id="nonaktif" autocomplete="off"> nonaktif
+            </label>
+        </div>';
                 //return '<p><input id="switch-size" type="checkbox" data-size="mini"></p>';
-            }
-        })
-        ->searchColumns('username')
-        ->orderColumns('id', 'username','asal_sekolah','status')
-        ->setAliasMapping()
-        ->make();
     }
+})
+->searchColumns('username')
+->orderColumns('id', 'username','asal_sekolah','status')
+->setAliasMapping()
+->make();
+}
 
-    public function getDataTableScore(){
-        return Datatable::collection(DB::table('user')->join('result', 'result.user_id', '=', 'user.id')->get())
-        ->showColumns('id', 'created_at','username','email','asal_sekolah','score')
-        ->addColumn('nama1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->nama;
-        })
-        ->addColumn('nis1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->nis;
-        })
-        ->addColumn('tahunmasuk1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->tahun_masuk;
-        })
-        ->addColumn('handphone1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->handphone;
-        })
-        ->addColumn('kp1', function($model){
-            $user = $model->anggota()->get();
-             return $user[0]->kartu_pelajar_dir;
-        })
-        ->addColumn('nama2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->nama;
-        })
-        ->addColumn('nis2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->nis;
-        })
-        ->addColumn('tahunmasuk2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->tahun_masuk;
-        })
-        ->addColumn('handphone2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->handphone;
-        })
-        ->addColumn('score', function($model){
-            $user = $model->score;
-             return $user[1]->score;
-        })
-        ->addColumn('kp2', function($model){
-            $user = $model->anggota()->get();
-             return $user[1]->kartu_pelajar_dir;
+public function getDataTableScore(){
+    return Datatable::collection(DB::table('user')->join('result', 'result.user_id', '=', 'user.id')->get())
+    ->showColumns('id', 'created_at','username','email','asal_sekolah','score')
+    ->addColumn('nama1', function($model){
+        $user = $model->anggota()->get();
+        return $user[0]->nama;
+    })
+    ->addColumn('nis1', function($model){
+        $user = $model->anggota()->get();
+        return $user[0]->nis;
+    })
+    ->addColumn('tahunmasuk1', function($model){
+        $user = $model->anggota()->get();
+        return $user[0]->tahun_masuk;
+    })
+    ->addColumn('handphone1', function($model){
+        $user = $model->anggota()->get();
+        return $user[0]->handphone;
+    })
+    ->addColumn('kp1', function($model){
+        $user = $model->anggota()->get();
+        return $user[0]->kartu_pelajar_dir;
+    })
+    ->addColumn('nama2', function($model){
+        $user = $model->anggota()->get();
+        return $user[1]->nama;
+    })
+    ->addColumn('nis2', function($model){
+        $user = $model->anggota()->get();
+        return $user[1]->nis;
+    })
+    ->addColumn('tahunmasuk2', function($model){
+        $user = $model->anggota()->get();
+        return $user[1]->tahun_masuk;
+    })
+    ->addColumn('handphone2', function($model){
+        $user = $model->anggota()->get();
+        return $user[1]->handphone;
+    })
+    ->addColumn('score', function($model){
+        $user = $model->score;
+        return $user[1]->score;
+    })
+    ->addColumn('kp2', function($model){
+        $user = $model->anggota()->get();
+        return $user[1]->kartu_pelajar_dir;
 
-        })
-        ->searchColumns('username')
-        ->orderColumns('id', 'username','asal_sekolah','score')
-        ->setAliasMapping()
-        ->make();
-    }
+    })
+    ->searchColumns('username')
+    ->orderColumns('id', 'username','asal_sekolah','score')
+    ->setAliasMapping()
+    ->make();
+}
 
-      public function getDatatablePaper()
-    {
+public function getDatatablePaper()
+{
 
-        return Datatable::collection(Paper_Team::all())
-        ->showColumns('id', 'judulpaper','created_at','paper')
-        ->addColumn('nama1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->nama;
-        })
+    return Datatable::collection(Paper_Team::all())
+    ->showColumns('id', 'judulpaper','created_at','paper')
+    ->addColumn('nama1', function($model){
+        $user = $model->member()->get();
+        return $user[0]->nama;
+    })
         /*
         ->addColumn('nama2', function($model){
             $user = $model->member()->get();
@@ -214,10 +242,10 @@ class UsersController extends Controller {
              return $user[2]->nama;
         })
         */
-        ->addColumn('jeniskelamin1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->jeniskelamin;
-        })
+->addColumn('jeniskelamin1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->jeniskelamin;
+})
         /*
         ->addColumn('jeniskelamin2', function($model){
             $user = $model->member()->get();
@@ -228,10 +256,10 @@ class UsersController extends Controller {
              return $user[2]->jeniskelamin;
         })
         */
-        ->addColumn('sma1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->sma;
-        })
+->addColumn('sma1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->sma;
+})
         /*
         ->addColumn('sma2', function($model){
             $user = $model->member()->get();
@@ -242,10 +270,10 @@ class UsersController extends Controller {
              return $user[2]->sma;
         })
         */
-        ->addColumn('jurusan1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->jurusan;
-        })
+->addColumn('jurusan1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->jurusan;
+})
         /*
         ->addColumn('jurusan2', function($model){
             $user = $model->member()->get();
@@ -256,10 +284,10 @@ class UsersController extends Controller {
              return $user[2]->jurusan;
         })
         */
-        ->addColumn('nim1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->nim;
-        })
+->addColumn('nim1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->nim;
+})
     /*
         ->addColumn('nim2', function($model){
             $user = $model->member()->get();
@@ -270,10 +298,10 @@ class UsersController extends Controller {
              return $user[2]->nim;
         })
         */
-        ->addColumn('email1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->email;
-        })
+->addColumn('email1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->email;
+})
         /*
         ->addColumn('email2', function($model){
             $user = $model->member()->get();
@@ -284,10 +312,10 @@ class UsersController extends Controller {
              return $user[2]->email;
         })
         */
-        ->addColumn('tahunmasuk1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->tahunmasuk;
-        })
+->addColumn('tahunmasuk1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->tahunmasuk;
+})
         /*
         ->addColumn('tahunmasuk2', function($model){
             $user = $model->member()->get();
@@ -298,10 +326,10 @@ class UsersController extends Controller {
              return $user[2]->tahunmasuk;
         })
         */
-        ->addColumn('handphone1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->handphone;
-        })
+->addColumn('handphone1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->handphone;
+})
         /*
         ->addColumn('handphone2', function($model){
             $user = $model->member()->get();
@@ -312,10 +340,10 @@ class UsersController extends Controller {
              return $user[2]->handphone;
         })
         */
-        ->addColumn('kp1', function($model){
-            $user = $model->member()->get();
-             return $user[0]->kartupelajar;
-        })
+->addColumn('kp1', function($model){
+    $user = $model->member()->get();
+    return $user[0]->kartupelajar;
+})
         /*
         ->addColumn('kp2', function($model){
             $user = $model->member()->get();
@@ -326,42 +354,42 @@ class UsersController extends Controller {
              return $user[2]->kartupelajar;
         })
         */
-        ->searchColumns('judulpaper')
-        ->orderColumns('id', 'judulpaper','created_at')
-        ->setAliasMapping()
-        ->make();
-    }
+->searchColumns('judulpaper')
+->orderColumns('id', 'judulpaper','created_at')
+->setAliasMapping()
+->make();
+}
 
 
-	public function getDatatableEssay()
-    {
-        return Datatable::collection(Essay::all())
-        ->showColumns('id', 'nama','universitas','jurusan','nim','angkatan','email','handphone','ktm','judulessay','essay')
-        ->searchColumns('nama')
-        ->orderColumns('id', 'nama','universitas','judulessay')
-        ->setAliasMapping()
-        ->make();
-    }
+public function getDatatableEssay()
+{
+    return Datatable::collection(Essay::all())
+    ->showColumns('id', 'nama','universitas','jurusan','nim','angkatan','email','handphone','ktm','judulessay','essay')
+    ->searchColumns('nama')
+    ->orderColumns('id', 'nama','universitas','judulessay')
+    ->setAliasMapping()
+    ->make();
+}
 
-    public function getSgDashboard(){
-        return View::make('admin/sg/index');
-    }
+public function getSgDashboard(){
+    return View::make('admin/sg/index');
+}
 
-    public function getEditProfile(){
-        $data = Auth::user()->anggota()->orderBy('urutan')->get();
-        return View::make('user/edit')->with('data',$data);
-    }
+public function getEditProfile(){
+    $data = Auth::user()->anggota()->orderBy('urutan')->get();
+    return View::make('user/edit')->with('data',$data);
+}
 
-   
 
-    public function updateConfirm(){
-        $id = Input::get('id');
-        $user = User::find($id);
-        if(Input::get('st')=="false"){
-            $user->status = 0;
-        }        
-        else $user->status = 1;
-        $user->save();
 
-    }
+public function updateConfirm(){
+    $id = Input::get('id');
+    $user = User::find($id);
+    if(Input::get('st')=="false"){
+        $user->status = 0;
+    }        
+    else $user->status = 1;
+    $user->save();
+
+}
 }

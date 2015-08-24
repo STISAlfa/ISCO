@@ -36,7 +36,7 @@
 				<table id="example" class="table table-bordered display">
 					<!--<table class="table table-striped table-bordered table-hover" id="example">-->
 					<thead>
-					<tr>
+						<tr>
 							<th>Peringkat</th>
 							<th>id</th>
 							<th>Nama Tim</th>
@@ -48,22 +48,25 @@
 					<tbody>
 						<?php $i=0 ?>
 						@foreach($data as $datum)
-							<?php
-							$i++;
-							$user = User::find($datum->user_id);
-							?>
-							<tr>
-								<td>{{$i}}</td>
-								<td>{{$user->id}}</td>	
-								<td>{{$user->username}}</td>
-								<td>{{$user->email}}</td>
-								<td>{{$user->asal_sekolah}}</td>
-								<td>{{$datum->score}}</td>
-							</tr>
+						<?php
+						$i++;
+						$user = User::find($datum->user_id);
+						?>
+						<tr>
+							<td>{{$i}}</td>
+							<td>{{$user->id}}</td>	
+							<td>{{$user->username}}</td>
+							<td>{{$user->email}}</td>
+							<td>{{$user->asal_sekolah}}</td>
+							<td>{{$datum->score}}</td>
+						</tr>
 						@endforeach
 					</tbody>
 				</table>
-
+				Username 1: <input type="text" id="usrname1"><br>
+				Username 2: <input type="text" id="usrname2"><br><br>
+				<button class="cekUji">Cek Kesamaan</button>
+				<a id="hasill"></a>
 			</div>
 		</div>
 	</div>
@@ -88,15 +91,35 @@
 {{HTML::script('assets/plugins/muthi/main.js')}}
 
 <script>	
-	
-$(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
+
+	$(document).on('click',".cekUji",function(){
+		$.ajax({
+			url: "{{URL::route('api.users.ceksama')}}",
+			type: "POST",
+			data: {
+				user1 : $("#usrname1").val(),
+				user2 : $("#usrname2").val()
+			},
+			beforeSend: function() { 
+				$("#hasill").html("Pengecekan..."); 
+			},
+			success: function(data) {
+				$("#hasill").html("Kemiripan Jawaban 2 User = "+data);
+			},
+			error: function(xhr, textStatus, thrownError) {
+				$("#hasill").html("Gagal");
+			}
+		});
+	});
+
+	$(document).ready(function() {
+		$('#example').DataTable( {
+			dom: 'Bfrtip',
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			]
+		} );
+	} );
 </script>
 
 @stop
