@@ -81,23 +81,25 @@ class UsersController extends Controller {
         $users = User::all();
         foreach ($users as $users1) {
             foreach ($users as $users2) {
-                if($users1->id !== $users2->id){
+                if(($users1->id !== $users2->id) 
+                    && (Result::where('user_id', $users1->id)->first() !== null)
+                    && (Result::where('user_id', $users2->id)->first() !== null)){
 
                     $sama = $this->compareJwb($users1,$users2);
 
                     if($sama>80){
-                        if (!preg_match($users1->username,$var))
+                        if (strpos($var,$users1->username) == false)
                             $var = $var."
                                      <tr>
-                                        <td>".$users1->username."</td>
-                                        <td>".$users1->asal_sekolah."</td>
+                                        <td> ".$users1->username." </td>
+                                        <td> ".$users1->asal_sekolah." </td>
                                       </tr>
                             ";
-                        if (!preg_match($users2->username,$var))
+                        if (strpos($var,$users2->username) == false)
                              $var = $var."
                                      <tr>
-                                        <td>".$users2->username."</td>
-                                        <td>".$users2->asal_sekolah."</td>
+                                        <td> ".$users2->username." </td>
+                                        <td> ".$users2->asal_sekolah." </td>
                                       </tr>
                             ";
                         }
