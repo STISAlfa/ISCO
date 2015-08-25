@@ -65,8 +65,10 @@
 				</table>
 				Username 1: <input type="text" id="usrname1"><br>
 				Username 2: <input type="text" id="usrname2"><br><br>
-				<button class="cekUji">Cek Kesamaan</button>
-				<a id="hasill"></a>
+				<button id="cekUji" class="btn btn-primary"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>Cek Kesamaan</button>
+				<button id="CekKembar" class="btn btn-warning"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Find Suspicious</button><br>
+				<div id="hasill"></div>
+				<div id="hasill2"></div>
 			</div>
 		</div>
 	</div>
@@ -92,7 +94,7 @@
 
 <script>	
 
-	$(document).on('click',".cekUji",function(){
+	$(document).on('click',"#cekUji",function(){
 		$.ajax({
 			url: "{{URL::route('api.users.ceksama')}}",
 			type: "POST",
@@ -107,7 +109,25 @@
 				$("#hasill").html("Kemiripan Jawaban 2 User = "+data);
 			},
 			error: function(xhr, textStatus, thrownError) {
-				$("#hasill").html("Gagal");
+				$("#hasill").html(xhr.responseText);
+			}
+		});
+	});
+
+	$(document).on('click',"#CekKembar",function(){
+		$.ajax({
+			url: "{{URL::route('api.users.cekkembar')}}",
+			type: "POST",
+			data: {
+			},
+			beforeSend: function() { 
+				$("#hasill2").html("Pengecekan..."); 
+			},
+			success: function(data) {
+				$("#hasill2").html(data);
+			},
+			error: function(xhr, textStatus, thrownError) {
+				$("#hasill2").html(xhr.responseText);
 			}
 		});
 	});

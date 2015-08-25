@@ -54,36 +54,82 @@ class UsersController extends Controller {
 
     public function getKesamaan(){
         $user1 = Input::get('user1');
-        $user1 = User::where('username', $user1)->first();
-        $jwbn1 = Result::where('user_id', $user1->id)->first();
-        $user1 = explode(";", $jwbn1->answer_list);
-
         $user2 = Input::get('user2');
-        $user2 = User::where('username', $user2)->first();
-        $jwbn2 = Result::where('user_id', $user2->id)->first();
-        $user2 = explode(";", $jwbn2->answer_list);
-        
-        $sama=0;
-        $ygsama=null;
 
-        for ($i=0; $i < count($user1); $i++) { 
-            if($user1[$i]==$user2[$i]){
-                $sama++;
-                $ygsama=$ygsama.$i.", ";
+        $user1 = User::where('username', $user1)->first();
+        $user2 = User::where('username', $user2)->first();
+        $var = "";
+        $mirip = $this->compareJwb($user1,$user2);
+        $var = number_format((float)$mirip, 2, '.', ''); 
+        return $var."";
+    }
+
+    public function getUserKembar(){
+        $var = "";
+        $var = "
+                <div class=\"container\">
+                  <h2>User Yang Dicurigai</h2>
+                  <table class=\"table table-condensed\">
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th>Sekolah</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+
+        $users = User::all();
+        foreach ($users as $users1) {
+            foreach ($users as $users2) {
+                if($users1->id !== $users2->id){
+
+                    $sama = $this->compareJwb($users1,$users2);
+
+                    if($sama>80){
+                        if (!preg_match($users1->username,$var))
+                            $var = $var."
+                                     <tr>
+                                        <td>".$users1->username."</td>
+                                        <td>".$users1->asal_sekolah."</td>
+                                      </tr>
+                            ";
+                        if (!preg_match($users2->username,$var))
+                             $var = $var."
+                                     <tr>
+                                        <td>".$users2->username."</td>
+                                        <td>".$users2->asal_sekolah."</td>
+                                      </tr>
+                            ";
+                        }
+                }
             }
         }
-        $mirip = ($sama/60)*100;
-        $var = number_format((float)$mirip, 2, '.', ''); 
-
-        if($mirip>80){
-            $var = $var."%<br>"
-                ."Jawaban Yang Sama: <br>".$ygsama;
-        }
-
-        return $var."";
-        
+        $var = $var."
+                    </tbody>
+              </table>
+            </div>
+            ";
+        return $var;
     }
     
+    private function compareJwb($input1,$input2){
+        $jwbn1 = Result::where('user_id', $input1->id)->first();
+        $us1 = explode(";", $jwbn1->answer_list);
+
+        $jwbn2 = Result::where('user_id', $input2->id)->first();
+        $us2 = explode(";", $jwbn2->answer_list);
+        
+        $sama=0;
+
+        for ($i=0; $i < count($us1); $i++) { 
+            if($us1[$i]==$us2[$i]){
+                $sama++;
+            }
+        }
+
+        $mirip = ($sama/60)*100;
+        return $mirip;
+    }
 
     public function getUserEssay(){
         return View::make('admin/user/essay');   
