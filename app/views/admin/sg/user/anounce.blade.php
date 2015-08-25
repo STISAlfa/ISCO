@@ -63,11 +63,15 @@
 						@endforeach
 					</tbody>
 				</table>
-				Username 1: <input type="text" id="usrname1"><br>
-				Username 2: <input type="text" id="usrname2"><br><br>
-				<button id="cekUji" class="btn btn-primary"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>Cek Kesamaan</button>
-				<button id="CekKembar" class="btn btn-warning"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Find Suspicious</button><br>
-				<div id="hasill"></div>
+				 <input type="text" id="usrname1" placeholder="Username 1">
+				<button id="cekUji" class="btn btn-primary">
+				<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>Cek Kesamaan</button><br> 
+				
+				<input type="text" id="usrname2" placeholder="Username 2"><div id="hasill"></div><br>
+				<input type="text" id="mirip" placeholder="Tingkat Kemiripan">
+				<button id="CekKembar" class="btn btn-warning">
+				<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Find Suspicious</button>
+				
 				<div id="hasill2"></div>
 			</div>
 		</div>
@@ -106,7 +110,7 @@
 				$("#hasill").html("Pengecekan..."); 
 			},
 			success: function(data) {
-				$("#hasill").html("Kemiripan Jawaban 2 User = "+data);
+				$("#hasill").html("Kemiripan Jawaban 2 User = <b>"+data+"</b>%");
 			},
 			error: function(xhr, textStatus, thrownError) {
 				$("#hasill").html(xhr.responseText);
@@ -119,6 +123,7 @@
 			url: "{{URL::route('api.users.cekkembar')}}",
 			type: "POST",
 			data: {
+				mirip : $("#mirip").val()
 			},
 			beforeSend: function() { 
 				$("#hasill2").html("Pengecekan..."); 

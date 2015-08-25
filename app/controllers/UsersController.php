@@ -65,6 +65,7 @@ class UsersController extends Controller {
     }
 
     public function getUserKembar(){
+        $kemiripan = Input::get('mirip');
         $var = "";
         $var = "
                 <div class=\"container\">
@@ -87,7 +88,7 @@ class UsersController extends Controller {
 
                     $sama = $this->compareJwb($users1,$users2);
 
-                    if($sama>80){
+                    if($sama>$kemiripan){
                         if (strpos($var,$users1->username) == false)
                             $var = $var."
                                      <tr>
