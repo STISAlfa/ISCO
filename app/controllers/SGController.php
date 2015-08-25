@@ -223,10 +223,9 @@ class SGController extends Controller {
 
 	public function getUser(){
 		$users = User::all();
-		$userss = $users->join('result', 'result.user_id', '=', 'id');
 		 $count[0] = 0;
 		 $count[1] = 0;
-		 foreach($userss as $user){
+		 foreach($users as $user){
 		    if($user->status){
 		      $count[1]++;
 		    }
