@@ -68,7 +68,7 @@ class UsersController extends Controller {
         $kemiripan = Input::get('mirip');
         $var = "";
         $var = "
-                <div class=\"container\">
+                <div>
                   <h2>User Yang Dicurigai</h2>
                   <table class=\"table table-condensed\">
                     <thead>
@@ -80,11 +80,21 @@ class UsersController extends Controller {
                     <tbody>";
 
         $users = User::all();
-        foreach ($users as $users1) {
-            foreach ($users as $users2) {
+        $cc = count($users);
+        $boola = array();
+        for($i=0;$i<$cc;$i++){
+            $boola[$i] = Result::where('user_id', $users[$i]->id)->first(); 
+        }
+
+        for($i=0;$i<$cc;$i++) {
+            $users1 = $users[$i];
+            //$boola= Result::where('user_id', $users1->id)->first();
+            for($j=($i+1);$j<$cc;$j++) {
+                $users2 = $users[$j];
+                //$boolb= Result::where('user_id', $users2->id)->first();
                 if(($users1->id !== $users2->id) 
-                    && (Result::where('user_id', $users1->id)->first() !== null)
-                    && (Result::where('user_id', $users2->id)->first() !== null)){
+                    && ($boola[$i] !== null)
+                    && ($boola[$j] !== null)){
 
                     $sama = $this->compareJwb($users1,$users2);
 
